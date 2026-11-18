@@ -21,4 +21,16 @@ Live: https://salalaslam.github.io/gearbox-kids/rivet/
 - **X-ray:** the ball on the end of the stem squashes the rivet's tail into a bulb, which pulls the sheets together until the stem breaks at its thin neck.
 - **Wiggle test:** `W`. **Slow-mo:** `S`. **Start again:** `R`.
 
-Each demo is one HTML file with no build step and no dependencies. Open `index.html` or `rivet/index.html` in a browser.
+# How oxygen gets into a cylinder
+
+A third demo follows oxygen from the air outside to a cylinder at the hospital.
+
+Live: https://salalaslam.github.io/gearbox-kids/oxygen/
+
+- **Steps:** clean the air, cool it until it turns liquid, boil off the nitrogen, store the liquid oxygen in a giant flask, check an empty cylinder, fill it, leak test and seal it, then drive it to the hospital. The big button (or `Space`) does the next step.
+- **Fill it up:** press and hold the button (or hold `Space`). Let go and the filling stops. The cylinder warms up as the gas is squeezed in, and the vaporizer frosts over.
+- **Zoom in:** tiny bits of air, made huge. Watch the dust and water get caught, the bits slow down and turn liquid, and the nitrogen boil away. A thermometer and a pressure gauge follow along.
+- **At the hospital:** `+` and `−` change the flow, and the demo works out how long the cylinder lasts.
+- **Slow-mo:** `S`. **Start again:** `R`.
+
+Each demo is one HTML file with no build step and no dependencies. Open `index.html`, `rivet/index.html` or `oxygen/index.html` in a browser.
