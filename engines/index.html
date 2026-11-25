@@ -1,0 +1,1581 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why Do Cars Have Multiple Exhaust Pipes?</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #fdf6e3; overflow: hidden; }
+  body { font-family: "Chalkboard SE", "Comic Sans MS", "Comic Neue", system-ui, sans-serif; }
+  svg { display: block; width: 100vw; height: 100vh; touch-action: none; }
+  text { user-select: none; -webkit-user-select: none; }
+  .btn { cursor: pointer; }
+  .btn:hover > rect, .btn:hover > circle { filter: brightness(1.08); }
+  .btn:active > rect, .btn:active > circle { filter: brightness(0.95); }
+  #rpmKnob { cursor: grab; }
+  #rpmKnob:active { cursor: grabbing; }
+  .ptitle { font-size: 21px; font-weight: bold; }
+  .msg {
+    box-sizing: border-box; height: 100%; display: flex; align-items: center; gap: 18px;
+    padding: 0 24px; background: #fff; border: 5px solid #94a3b8; border-radius: 20px;
+    font-size: 22px; line-height: 1.25; color: #1e293b; transition: border-color .25s;
+  }
+  .msg .emo { font-size: 42px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+<svg id="svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Interactive engine configurations and exhaust pipes explainer">
+  <defs>
+    <linearGradient id="skyBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e0f2fe"/><stop offset="1" stop-color="#f8fafc"/>
+    </linearGradient>
+    <linearGradient id="carRearBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#dbeafe"/><stop offset="0.72" stop-color="#f1f5f9"/><stop offset="0.72" stop-color="#cbd5e1"/><stop offset="1" stop-color="#94a3b8"/>
+    </linearGradient>
+    <linearGradient id="metalGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#94a3b8"/><stop offset="0.45" stop-color="#e2e8f0"/><stop offset="1" stop-color="#64748b"/>
+    </linearGradient>
+    <linearGradient id="rpmFillGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#22c55e"/><stop offset="0.55" stop-color="#f59e0b"/><stop offset="1" stop-color="#ef4444"/>
+    </linearGradient>
+    <radialGradient id="boomGrad" cx="50%" cy="50%" r="55%">
+      <stop offset="0" stop-color="#fef08a"/><stop offset="0.5" stop-color="#fb923c"/><stop offset="1" stop-color="#ef4444" stop-opacity="0.25"/>
+    </radialGradient>
+    <filter id="glowSoft" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <clipPath id="pipesClip"><rect x="32" y="72" width="996" height="346" rx="20"/></clipPath>
+    <clipPath id="rearClip"><rect x="716" y="122" width="298" height="244" rx="16"/></clipPath>
+    <clipPath id="engineClip"><rect x="32" y="437" width="1536" height="361" rx="20"/></clipPath>
+    <clipPath id="beatClip"><rect x="702" y="734" width="676" height="44" rx="10"/></clipPath>
+  </defs>
+
+  <!-- ================= HEADER ================= -->
+  <a href="../" aria-label="Back to all machines">
+    <g class="btn">
+      <rect x="30" y="15" width="158" height="38" rx="19" fill="#fff" stroke="#94a3b8" stroke-width="2.5"/>
+      <text x="109" y="40" text-anchor="middle" font-size="17" font-weight="bold" fill="#334155">← All machines</text>
+    </g>
+  </a>
+  <text x="845" y="46" text-anchor="middle" font-size="34" font-weight="bold" fill="#1e293b">Why do cars have 1, 2, or 4 EXHAUST PIPES?</text>
+
+  <!-- ================= TOP-LEFT: TAILPIPES & UNDERBODY TRACE ================= -->
+  <rect x="30" y="70" width="1000" height="350" rx="22" fill="url(#skyBg)"/>
+  <g clip-path="url(#pipesClip)">
+    <!-- Underbody panel background -->
+    <rect x="44" y="122" width="658" height="244" rx="16" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2.5"/>
+    <text x="58" y="144" font-size="14" font-weight="bold" fill="#64748b">UNDER THE CAR (follow the smoke from engine to bumper!)</text>
+
+    <!-- Car chassis top-down silhouette -->
+    <g id="carChassis">
+      <!-- 4 wheels -->
+      <rect x="132" y="152" width="70" height="22" rx="7" fill="#334155"/>
+      <rect x="132" y="324" width="70" height="22" rx="7" fill="#334155"/>
+      <rect x="526" y="152" width="70" height="22" rx="7" fill="#334155"/>
+      <rect x="526" y="324" width="70" height="22" rx="7" fill="#334155"/>
+      <!-- Body outline -->
+      <path d="M 74 176 Q 74 162 114 162 L 626 162 Q 658 162 666 184 L 666 314 Q 658 336 626 336 L 114 336 Q 74 336 74 322 Z"
+            fill="#e2e8f0" fill-opacity="0.55" stroke="#94a3b8" stroke-width="3" stroke-dasharray="9 6"/>
+      <!-- Front hood label -->
+      <rect x="86" y="178" width="142" height="142" rx="14" fill="#fff" stroke="#64748b" stroke-width="2.5"/>
+      <text x="157" y="196" text-anchor="middle" font-size="13" font-weight="bold" fill="#475569">ENGINE</text>
+      <text x="157" y="313" text-anchor="middle" font-size="12" font-weight="bold" fill="#64748b">front of car</text>
+    </g>
+
+    <!-- Dynamic underbody engine banks, pipes, mufflers, puffs -->
+    <g id="underbodyPipes"></g>
+    <g id="underbodyPuffs"></g>
+
+    <!-- Rear bumper closeup box -->
+    <rect x="716" y="122" width="298" height="244" rx="16" fill="url(#carRearBg)" stroke="#64748b" stroke-width="2.5"/>
+    <g clip-path="url(#rearClip)">
+      <text x="865" y="144" text-anchor="middle" font-size="14" font-weight="bold" fill="#334155">BACK OF THE CAR (tap a pipe!)</text>
+      <!-- Rear car silhouette -->
+      <g id="rearCar">
+        <!-- Rear wheels -->
+        <rect x="742" y="294" width="38" height="44" rx="8" fill="#1e293b"/>
+        <rect x="950" y="294" width="38" height="44" rx="8" fill="#1e293b"/>
+        <!-- Cabin roof -->
+        <path d="M 768 214 L 788 166 Q 794 156 810 156 L 920 156 Q 936 156 942 166 L 962 214 Z"
+              fill="#ef4444" stroke="#7f1d1d" stroke-width="3" stroke-linejoin="round"/>
+        <!-- Rear window -->
+        <path d="M 784 210 L 798 172 Q 802 166 814 166 L 916 166 Q 928 166 932 172 L 946 210 Z"
+              fill="#bae6fd" stroke="#334155" stroke-width="2.5" stroke-linejoin="round"/>
+        <!-- Trunk & body -->
+        <rect x="734" y="212" width="262" height="84" rx="18" fill="#ef4444" stroke="#7f1d1d" stroke-width="3"/>
+        <!-- Taillights -->
+        <rect x="744" y="226" width="46" height="24" rx="8" fill="#fca5a5" stroke="#991b1b" stroke-width="2.5"/>
+        <rect x="748" y="232" width="16" height="12" rx="4" fill="#fef08a"/>
+        <rect x="940" y="226" width="46" height="24" rx="8" fill="#fca5a5" stroke="#991b1b" stroke-width="2.5"/>
+        <rect x="966" y="232" width="16" height="12" rx="4" fill="#fef08a"/>
+        <!-- License plate -->
+        <rect x="816" y="232" width="98" height="34" rx="6" fill="#fefce8" stroke="#334155" stroke-width="2.5"/>
+        <text id="plateText" x="865" y="256" text-anchor="middle" font-size="18" font-weight="bold" fill="#1e293b">V8-ROAR</text>
+        <!-- Dark bumper lower trim -->
+        <rect x="738" y="274" width="254" height="34" rx="12" fill="#334155" stroke="#0f172a" stroke-width="2.5"/>
+      </g>
+      <!-- Dynamic tailpipe tips & rear smoke puffs -->
+      <g id="rearPuffs"></g>
+      <g id="rearTips"></g>
+    </g>
+
+    <!-- Bottom pill counters inside top-left panel -->
+    <g id="statBar">
+      <rect x="44" y="374" width="290" height="34" rx="12" fill="#fff" stroke="#cbd5e1" stroke-width="2"/>
+      <text id="statRows" x="189" y="397" text-anchor="middle" font-size="16" font-weight="bold" fill="#334155"></text>
+
+      <rect x="348" y="374" width="316" height="34" rx="12" fill="#fff" stroke="#cbd5e1" stroke-width="2"/>
+      <text id="statPaths" x="506" y="397" text-anchor="middle" font-size="16" font-weight="bold" fill="#334155"></text>
+
+      <rect id="statTipsBox" x="678" y="374" width="336" height="34" rx="12" fill="#fff" stroke="#cbd5e1" stroke-width="2"/>
+      <text id="statTips" x="846" y="397" text-anchor="middle" font-size="16" font-weight="bold" fill="#334155"></text>
+    </g>
+  </g>
+  <rect x="30" y="70" width="1000" height="350" rx="22" fill="none" stroke="#64748b" stroke-width="3"/>
+  <text x="52" y="104" class="ptitle" fill="#334155">FOLLOW THE PIPES!</text>
+
+  <!-- Tip trick selector buttons in top-left header -->
+  <text x="526" y="102" text-anchor="end" font-size="15" font-weight="bold" fill="#475569">Bumper tips:</text>
+  <g class="btn" data-tipmode="real" id="tipBtnReal">
+    <rect x="536" y="80" width="144" height="34" rx="10" fill="#0ea5e9" stroke="#0369a1" stroke-width="2"/>
+    <text x="608" y="103" text-anchor="middle" font-size="15" font-weight="bold" fill="#fff">✔ Match pipes</text>
+  </g>
+  <g class="btn" data-tipmode="split" id="tipBtnSplit">
+    <rect x="688" y="80" width="156" height="34" rx="10" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2"/>
+    <text x="766" y="103" text-anchor="middle" font-size="15" font-weight="bold" fill="#334155">🔀 Y-split tips</text>
+  </g>
+  <g class="btn" data-tipmode="fake" id="tipBtnFake">
+    <rect x="852" y="80" width="162" height="34" rx="10" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2"/>
+    <text x="933" y="103" text-anchor="middle" font-size="15" font-weight="bold" fill="#334155">🎭 Fake tip trick!</text>
+  </g>
+
+  <!-- ================= TOP-RIGHT: ENGINE PICKER & GAS PEDAL ================= -->
+  <rect x="1050" y="70" width="520" height="350" rx="22" fill="#fff" stroke="#f97316" stroke-width="3"/>
+  <text x="1072" y="102" class="ptitle" fill="#ea580c">PICK AN ENGINE</text>
+  <text id="engBadge" x="1548" y="100" text-anchor="end" font-size="14" font-weight="bold" fill="#64748b">8 cyls · V-shape (90°)</text>
+
+  <!-- 6 Engine buttons (3x2 grid) -->
+  <g id="engineButtons"></g>
+
+  <!-- RPM / Gas Pedal Slider -->
+  <rect x="1072" y="246" width="476" height="90" rx="16" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="1088" y="272" font-size="16" font-weight="bold" fill="#334155">⛽ GAS PEDAL (RPM)</text>
+  <text id="rpmReadout" x="1532" y="272" text-anchor="end" font-size="17" font-weight="bold" fill="#ea580c">800 RPM · idling</text>
+
+  <!-- Slider track -->
+  <g id="rpmSliderGroup" style="cursor:pointer;">
+    <rect x="1090" y="284" width="440" height="32" fill="transparent"/>
+    <rect x="1094" y="292" width="432" height="16" rx="8" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2"/>
+    <rect id="rpmFill" x="1094" y="292" width="120" height="16" rx="8" fill="url(#rpmFillGrad)"/>
+    <g id="rpmKnob" transform="translate(1214 300)">
+      <circle r="17" fill="#ef4444" stroke="#7f1d1d" stroke-width="3"/>
+      <circle cx="-4" cy="-5" r="4.5" fill="#fff" opacity="0.6"/>
+    </g>
+  </g>
+  <text x="1094" y="328" font-size="13" font-weight="bold" fill="#64748b">🐢 slow-mo</text>
+  <text x="1234" y="328" text-anchor="middle" font-size="13" font-weight="bold" fill="#64748b">idle</text>
+  <text x="1386" y="328" text-anchor="middle" font-size="13" font-weight="bold" fill="#64748b">cruise</text>
+  <text x="1526" y="328" text-anchor="end" font-size="13" font-weight="bold" fill="#dc2626">🏎️ redline!</text>
+
+  <!-- Sound & Pause Buttons -->
+  <g class="btn" id="soundBtn">
+    <rect id="soundRect" x="1072" y="348" width="232" height="54" rx="14" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2.5"/>
+    <text id="soundText" x="1188" y="383" text-anchor="middle" font-size="20" font-weight="bold" fill="#334155">🔇 SOUND: OFF</text>
+  </g>
+  <g class="btn" id="pauseBtn">
+    <rect id="pauseRect" x="1316" y="348" width="232" height="54" rx="14" fill="#22c55e" stroke="#15803d" stroke-width="2.5"/>
+    <text id="pauseText" x="1432" y="383" text-anchor="middle" font-size="20" font-weight="bold" fill="#fff">⏸ PAUSE</text>
+  </g>
+
+  <!-- ================= BOTTOM: INSIDE THE ENGINE (X-RAY) ================= -->
+  <rect x="30" y="435" width="1540" height="365" rx="22" fill="#fff" stroke="#6366f1" stroke-width="3"/>
+  <g clip-path="url(#engineClip)">
+    <text x="52" y="466" class="ptitle" fill="#4f46e5">INSIDE THE ENGINE <tspan font-size="16" font-weight="normal" fill="#64748b">(end-on shape + every cylinder firing)</tspan></text>
+
+    <!-- 4-stroke legend -->
+    <g transform="translate(835 458)" font-size="15" font-weight="bold" fill="#334155">
+      <circle cx="0" cy="-5" r="8" fill="#60a5fa" stroke="#1d4ed8" stroke-width="2"/>
+      <text x="14" y="0">1. Air in</text>
+      <circle cx="115" cy="-5" r="8" fill="#fbbf24" stroke="#b45309" stroke-width="2"/>
+      <text x="129" y="0">2. Squeeze</text>
+      <circle cx="248" cy="-5" r="8" fill="#f97316" stroke="#c2410c" stroke-width="2"/>
+      <text x="262" y="0">3. BOOM! 💥</text>
+      <circle cx="398" cy="-5" r="8" fill="#94a3b8" stroke="#475569" stroke-width="2"/>
+      <text x="412" y="0">4. Exhaust puff 💨</text>
+    </g>
+
+    <!-- Left sub-panel: End-on cross section -->
+    <rect x="46" y="482" width="602" height="304" rx="16" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="64" y="505" font-size="15" font-weight="bold" fill="#475569">FRONT VIEW (cross-section)</text>
+    <rect x="480" y="490" width="156" height="30" rx="10" fill="#eef2ff" stroke="#818cf8" stroke-width="2"/>
+    <text id="shapePill" x="558" y="510" text-anchor="middle" font-size="14" font-weight="bold" fill="#4338ca">V-shape (90°)</text>
+    <g id="crossSection"></g>
+    <g id="crossPuffs"></g>
+
+    <!-- Right sub-panel: Top-down cylinder rows + manifold -->
+    <rect x="668" y="482" width="886" height="236" rx="16" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="686" y="505" font-size="15" font-weight="bold" fill="#475569">TOP VIEW (all cylinders feeding the exhaust pipes)</text>
+    <text id="firingLabel" x="1536" y="505" text-anchor="end" font-size="14" font-weight="bold" fill="#64748b"></text>
+    <g id="topView"></g>
+    <g id="topPuffs"></g>
+
+    <!-- Firing beat / smoothness timeline -->
+    <rect x="668" y="726" width="886" height="60" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="686" y="747" font-size="13" font-weight="bold" fill="#64748b">FIRING</text>
+    <text x="686" y="766" font-size="13" font-weight="bold" fill="#64748b">RHYTHM</text>
+    <rect x="752" y="734" width="626" height="44" rx="10" fill="#1e293b"/>
+    <g clip-path="url(#beatClip)" id="beatTrack"></g>
+    <line x1="772" y1="734" x2="772" y2="778" stroke="#facc15" stroke-width="3" stroke-dasharray="4 3"/>
+    <text id="smoothTitle" x="1466" y="753" text-anchor="middle" font-size="16" font-weight="bold" fill="#1e293b"></text>
+    <text id="smoothSub" x="1466" y="773" text-anchor="middle" font-size="13" fill="#64748b"></text>
+  </g>
+  <rect x="30" y="435" width="1540" height="365" rx="22" fill="none" stroke="#6366f1" stroke-width="3"/>
+
+  <!-- ================= BOTTOM EXPLANATION BANNER ================= -->
+  <foreignObject x="30" y="812" width="1540" height="80">
+    <div class="msg" id="msg"><span class="emo" id="msgEmo"></span><span id="msgText"></span></div>
+  </foreignObject>
+</svg>
+
+<script>
+const NS = 'http://www.w3.org/2000/svg';
+const $ = id => document.getElementById(id);
+function el(tag, attrs, parent) {
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(e);
+  return e;
+}
+function txt(attrs, text, parent) {
+  const t = el('text', { 'font-size': 15, 'font-weight': 'bold', fill: '#334155', ...attrs }, parent);
+  t.textContent = text;
+  return t;
+}
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const wrap = (v, m) => ((v % m) + m) % m;
+const lerp = (a, b, t) => a + (b - a) * t;
+const RAD = Math.PI / 180;
+
+// Bank colors shared across underbody, cross-section, top view, and firing track
+const BANK_COL = ['#f97316', '#0ea5e9'];      // Orange = Bank A (or single row), Sky Blue = Bank B
+const BANK_DARK = ['#9a3412', '#0369a1'];
+const BANK_LIGHT = ['#ffedd5', '#e0f2fe'];
+
+// =========================================================================
+// ENGINE DEFINITIONS (mechanically grounded, kid-friendly)
+// =========================================================================
+// phaseDeg: crank angle (0..720) when cylinder hits TDC firing (start of BOOM stroke).
+// In a 4-stroke cycle (720°):
+//   0..180°   = BOOM (Power)
+//   180..360° = Exhaust (Puff out!)
+//   360..540° = Intake (Air in)
+//   540..720° = Compression (Squeeze)
+const ENGINES = {
+  I3: {
+    id: 'I3', name: 'Inline-3', short: 'I3', sub: '3 in 1 row',
+    cylinders: 3, rows: 1, realPaths: 1, naturalTips: 1,
+    shapeLabel: 'Straight I (0°)', shapeLetter: 'I',
+    plate: 'I3-MINI', color: '#16a34a',
+    smoothTitle: 'Bumpy beat!', smoothSub: '1 boom every 240°',
+    // Cross-section banks: angleDeg (0 = straight up), exhaustSide (-1 left, +1 right), bankIdx (0 or 1), cylIdx (which cylinder drives this cross-section piston)
+    crossBanks: [
+      { angleDeg: 0, exhaustSide: 1, bankIdx: 0, cylIdx: 0, depthCount: 3 }
+    ],
+    // Top-down cylinders: { num, row, col, bankIdx, phaseDeg }
+    cyls: [
+      { num: 1, row: 0, col: 0, bankIdx: 0, phaseDeg: 0 },
+      { num: 2, row: 0, col: 1, bankIdx: 0, phaseDeg: 480 },
+      { num: 3, row: 0, col: 2, bankIdx: 0, phaseDeg: 240 },
+    ],
+    firingText: 'Firing order: 1 → 3 → 2',
+    audio: { order: 1.5, rumble: 0.42, tone: 0.35, bass: 0.55 },
+    desc: '<b>INLINE-3:</b> 3 cylinders stand in <b>1 straight row</b>, so all their exhaust leaves through <b>1 pipe</b>. Small, light, and great on gas—found in tiny city cars!'
+  },
+  I4: {
+    id: 'I4', name: 'Inline-4', short: 'I4', sub: '4 in 1 row',
+    cylinders: 4, rows: 1, realPaths: 1, naturalTips: 1,
+    shapeLabel: 'Straight I (0°)', shapeLetter: 'I',
+    plate: 'I4-EASY', color: '#0ea5e9',
+    smoothTitle: 'Steady beat', smoothSub: '1 boom every 180°',
+    crossBanks: [
+      { angleDeg: 0, exhaustSide: 1, bankIdx: 0, cylIdx: 0, depthCount: 4 }
+    ],
+    cyls: [
+      { num: 1, row: 0, col: 0, bankIdx: 0, phaseDeg: 0 },
+      { num: 2, row: 0, col: 1, bankIdx: 0, phaseDeg: 540 },
+      { num: 3, row: 0, col: 2, bankIdx: 0, phaseDeg: 180 },
+      { num: 4, row: 0, col: 3, bankIdx: 0, phaseDeg: 360 },
+    ],
+    firingText: 'Firing order: 1 → 3 → 4 → 2',
+    audio: { order: 2.0, rumble: 0.25, tone: 0.55, bass: 0.45 },
+    desc: '<b>INLINE-4:</b> The world’s most common car engine! All 4 cylinders line up in <b>1 row</b> and share <b>1 exhaust path</b>—try <b>Y-split tips</b> to see why some 4-cylinder cars still have 2 tips!'
+  },
+  I6: {
+    id: 'I6', name: 'Inline-6', short: 'I6', sub: '6 in 1 row',
+    cylinders: 6, rows: 1, realPaths: 1, naturalTips: 1,
+    shapeLabel: 'Long I (0°)', shapeLetter: 'I',
+    plate: 'I6-SILK', color: '#8b5cf6',
+    smoothTitle: 'Silky smooth!', smoothSub: '1 boom every 120°',
+    crossBanks: [
+      { angleDeg: 0, exhaustSide: 1, bankIdx: 0, cylIdx: 0, depthCount: 6 }
+    ],
+    cyls: [
+      { num: 1, row: 0, col: 0, bankIdx: 0, phaseDeg: 0 },
+      { num: 2, row: 0, col: 1, bankIdx: 0, phaseDeg: 480 },
+      { num: 3, row: 0, col: 2, bankIdx: 0, phaseDeg: 240 },
+      { num: 4, row: 0, col: 3, bankIdx: 0, phaseDeg: 600 },
+      { num: 5, row: 0, col: 4, bankIdx: 0, phaseDeg: 120 },
+      { num: 6, row: 0, col: 5, bankIdx: 0, phaseDeg: 360 },
+    ],
+    firingText: 'Firing order: 1 → 5 → 3 → 6 → 2 → 4',
+    audio: { order: 3.0, rumble: 0.14, tone: 0.72, bass: 0.5 },
+    desc: '<b>INLINE-6:</b> 6 cylinders in <b>1 extra-long row</b>! Pistons move in balanced pairs so it runs silky smooth—still just <b>1 row</b>, feeding <b>1 main exhaust side</b> (often split into 2 sporty tips).'
+  },
+  V6: {
+    id: 'V6', name: 'V6', short: 'V6', sub: '2 rows of 3',
+    cylinders: 6, rows: 2, realPaths: 2, naturalTips: 2,
+    shapeLabel: 'V-shape (60°)', shapeLetter: 'V',
+    plate: 'V6-ZOOM', color: '#f59e0b',
+    smoothTitle: 'Quick & smooth', smoothSub: '1 boom every 120°',
+    crossBanks: [
+      { angleDeg: -30, exhaustSide: -1, bankIdx: 0, cylIdx: 0, depthCount: 3 },
+      { angleDeg: 30,  exhaustSide: 1,  bankIdx: 1, cylIdx: 1, depthCount: 3 },
+    ],
+    cyls: [
+      { num: 1, row: 0, col: 0, bankIdx: 0, phaseDeg: 0 },
+      { num: 2, row: 1, col: 0, bankIdx: 1, phaseDeg: 120 },
+      { num: 3, row: 0, col: 1, bankIdx: 0, phaseDeg: 240 },
+      { num: 4, row: 1, col: 1, bankIdx: 1, phaseDeg: 360 },
+      { num: 5, row: 0, col: 2, bankIdx: 0, phaseDeg: 480 },
+      { num: 6, row: 1, col: 2, bankIdx: 1, phaseDeg: 600 },
+    ],
+    firingText: 'Firing order: 1 → 2 → 3 → 4 → 5 → 6',
+    audio: { order: 3.0, rumble: 0.34, tone: 0.62, bass: 0.65 },
+    desc: '<b>V6:</b> Split 6 cylinders into <b>2 tilted rows of 3</b> (a V shape!) so the engine is much shorter. Now there are <b>2 sides</b>, so it naturally has <b>2 exhaust pipes</b>—one for the orange row and one for the blue row!'
+  },
+  V8: {
+    id: 'V8', name: 'V8', short: 'V8', sub: '2 rows of 4',
+    cylinders: 8, rows: 2, realPaths: 2, naturalTips: 2,
+    shapeLabel: 'V-shape (90°)', shapeLetter: 'V',
+    plate: 'V8-ROAR', color: '#ef4444',
+    smoothTitle: 'Deep rumble!', smoothSub: '1 boom every 90°',
+    crossBanks: [
+      { angleDeg: -45, exhaustSide: -1, bankIdx: 0, cylIdx: 0, depthCount: 4 },
+      { angleDeg: 45,  exhaustSide: 1,  bankIdx: 1, cylIdx: 1, depthCount: 4 },
+    ],
+    // Cross-plane V8 firing order 1-8-4-3-6-5-7-2 (left bank odd 1,3,5,7; right bank even 2,4,6,8)
+    cyls: [
+      { num: 1, row: 0, col: 0, bankIdx: 0, phaseDeg: 0 },
+      { num: 3, row: 0, col: 1, bankIdx: 0, phaseDeg: 270 },
+      { num: 5, row: 0, col: 2, bankIdx: 0, phaseDeg: 450 },
+      { num: 7, row: 0, col: 3, bankIdx: 0, phaseDeg: 540 },
+      { num: 2, row: 1, col: 0, bankIdx: 1, phaseDeg: 630 },
+      { num: 4, row: 1, col: 1, bankIdx: 1, phaseDeg: 180 },
+      { num: 6, row: 1, col: 2, bankIdx: 1, phaseDeg: 360 },
+      { num: 8, row: 1, col: 3, bankIdx: 1, phaseDeg: 90 },
+    ],
+    firingText: 'Firing order: 1 → 8 → 4 → 3 → 6 → 5 → 7 → 2',
+    audio: { order: 4.0, rumble: 0.72, tone: 0.45, bass: 0.92 },
+    desc: '<b>V8:</b> <b>2 wide rows of 4 cylinders</b> (90° apart) = <b>2 big exhaust paths</b>! Notice how the orange and blue banks sometimes fire twice in a row—that gives V8s their famous deep <b>rumble</b>! Try <b>Y-split tips</b> for 4 pipes!'
+  },
+  W12: {
+    id: 'W12', name: 'W12', short: 'W12', sub: '4 rows of 3',
+    cylinders: 12, rows: 4, realPaths: 2, naturalTips: 4,
+    shapeLabel: 'W-shape (4 rows!)', shapeLetter: 'W',
+    plate: 'W12-MAX', color: '#db2777',
+    smoothTitle: 'Ultra smooth!', smoothSub: '1 boom every 60°',
+    crossBanks: [
+      { angleDeg: -45, exhaustSide: -1, bankIdx: 0, cylIdx: 0,  depthCount: 3 },
+      { angleDeg: -22, exhaustSide: -1, bankIdx: 0, cylIdx: 3,  depthCount: 3 },
+      { angleDeg: 22,  exhaustSide: 1,  bankIdx: 1, cylIdx: 6,  depthCount: 3 },
+      { angleDeg: 45,  exhaustSide: 1,  bankIdx: 1, cylIdx: 9,  depthCount: 3 },
+    ],
+    // Two narrow-angle VR6 banks (rows 0&1 = left orange bank of 6; rows 2&3 = right blue bank of 6)
+    cyls: [
+      { num: 1,  row: 0, col: 0, bankIdx: 0, phaseDeg: 0 },
+      { num: 3,  row: 0, col: 1, bankIdx: 0, phaseDeg: 240 },
+      { num: 5,  row: 0, col: 2, bankIdx: 0, phaseDeg: 480 },
+      { num: 2,  row: 1, col: 0, bankIdx: 0, phaseDeg: 120 },
+      { num: 4,  row: 1, col: 1, bankIdx: 0, phaseDeg: 360 },
+      { num: 6,  row: 1, col: 2, bankIdx: 0, phaseDeg: 600 },
+      { num: 7,  row: 2, col: 0, bankIdx: 1, phaseDeg: 60 },
+      { num: 9,  row: 2, col: 1, bankIdx: 1, phaseDeg: 300 },
+      { num: 11, row: 2, col: 2, bankIdx: 1, phaseDeg: 540 },
+      { num: 8,  row: 3, col: 0, bankIdx: 1, phaseDeg: 180 },
+      { num: 10, row: 3, col: 1, bankIdx: 1, phaseDeg: 420 },
+      { num: 12, row: 3, col: 2, bankIdx: 1, phaseDeg: 660 },
+    ],
+    firingText: '12 cylinders! Booms overlap every 60°',
+    audio: { order: 6.0, rumble: 0.22, tone: 0.85, bass: 0.78 },
+    desc: '<b>W12:</b> Like <b>two skinny V6s fused together</b> into <b>4 rows</b> (a W shape)! All 12 cylinders pack into a short block, blowing huge exhaust out <b>2 giant banks</b> that split into <b>4 mega tailpipes</b>!'
+  }
+};
+const ENGINE_ORDER = ['I3', 'I4', 'I6', 'V6', 'V8', 'W12'];
+
+// =========================================================================
+// STATE
+// =========================================================================
+const S = {
+  engId: 'V8',
+  tipMode: 'real',       // 'real' | 'split' | 'fake'
+  rpmNorm: 0.22,         // 0..1 slider (0 = 150 RPM slow-mo, 0.22 = ~850 RPM idle, 1 = 6000 RPM)
+  paused: false,
+  soundOn: false,
+  crankDeg: 0,           // 0..720 continuous 4-stroke cycle
+  highlightBank: -1,     // -1 = none, 0 = Bank A, 1 = Bank B, 2 = Fake tip
+  highlightTimer: 0,
+  beats: [],             // scrolling boom markers on rhythm strip
+  underPuffs: [],        // gas puffs traveling down underbody pipes
+  rearPuffs: [],         // smoke clouds exiting tailpipes
+  crossPuffs: [],        // puffs exiting cross-section ports
+  topPuffs: [],          // puffs exiting top-view manifold runners
+  prevStrokes: [],       // track stroke transitions per cylinder
+};
+
+function getRpm() {
+  // Nonlinear curve: gives generous control at slow-mo & idle, smooth sweep up to 6000 RPM
+  return Math.round(120 + Math.pow(S.rpmNorm, 1.65) * 5880);
+}
+function getVisualDegPerSec() {
+  // Keeps pistons visually crisp & legible even at 6000 RPM (no 60Hz wagon-wheel aliasing!)
+  const rpm = getRpm();
+  const norm = clamp((rpm - 120) / 5880, 0, 1);
+  // 120 RPM -> 110 deg/s (~0.3 rev/s, super clear slow-mo)
+  // 850 RPM -> 430 deg/s (~1.2 rev/s, lively idle)
+  // 6000 RPM -> 1680 deg/s (~4.7 rev/s, fast zoom)
+  return 110 + Math.pow(norm, 0.72) * 1570;
+}
+
+// Compute actual visible tips & pipe routing topology for current engine + tipMode
+function getExhaustSpec() {
+  const E = ENGINES[S.engId];
+  const paths = E.realPaths; // 1 or 2
+  // Each tip: { xOffset (-1..1 along bumper), bankIdx (0, 1, or -1 for fake), isFake }
+  if (paths === 1) {
+    if (S.tipMode === 'real') {
+      return {
+        paths: 1, tipsCount: 1, isSplit: false, hasFake: false,
+        tips: [{ pos: 0.62, bankIdx: 0, isFake: false }]
+      };
+    }
+    if (S.tipMode === 'split') {
+      return {
+        paths: 1, tipsCount: 2, isSplit: true, hasFake: false,
+        tips: [
+          { pos: -0.62, bankIdx: 0, isFake: false },
+          { pos: 0.62,  bankIdx: 0, isFake: false }
+        ]
+      };
+    }
+    // fake tip on 1-path engine: 1 real tip + 1 fake decoy tip!
+    return {
+      paths: 1, tipsCount: 2, isSplit: false, hasFake: true,
+      tips: [
+        { pos: -0.62, bankIdx: -1, isFake: true },
+        { pos: 0.62,  bankIdx: 0,  isFake: false }
+      ]
+    };
+  }
+  // 2-path engines (V6, V8, W12)
+  if (S.tipMode === 'real') {
+    if (E.naturalTips === 4) {
+      // W12 naturally splits its 2 huge banks into 4 quad tailpipes
+      return {
+        paths: 2, tipsCount: 4, isSplit: true, hasFake: false,
+        tips: [
+          { pos: -0.76, bankIdx: 0, isFake: false },
+          { pos: -0.46, bankIdx: 0, isFake: false },
+          { pos: 0.46,  bankIdx: 1, isFake: false },
+          { pos: 0.76,  bankIdx: 1, isFake: false }
+        ]
+      };
+    }
+    return {
+      paths: 2, tipsCount: 2, isSplit: false, hasFake: false,
+      tips: [
+        { pos: -0.62, bankIdx: 0, isFake: false },
+        { pos: 0.62,  bankIdx: 1, isFake: false }
+      ]
+    };
+  }
+  if (S.tipMode === 'split') {
+    return {
+      paths: 2, tipsCount: 4, isSplit: true, hasFake: false,
+      tips: [
+        { pos: -0.76, bankIdx: 0, isFake: false },
+        { pos: -0.46, bankIdx: 0, isFake: false },
+        { pos: 0.46,  bankIdx: 1, isFake: false },
+        { pos: 0.76,  bankIdx: 1, isFake: false }
+      ]
+    };
+  }
+  // Fake tip mode on 2-path engines: outer tips are fake decoys while inner tips are real!
+  return {
+    paths: 2, tipsCount: 4, isSplit: false, hasFake: true,
+    tips: [
+      { pos: -0.78, bankIdx: -1, isFake: true },
+      { pos: -0.46, bankIdx: 0,  isFake: false },
+      { pos: 0.46,  bankIdx: 1,  isFake: false },
+      { pos: 0.78,  bankIdx: -1, isFake: true }
+    ]
+  };
+}
+
+// =========================================================================
+// WEB AUDIO SYNTHESIZER (starts muted; unlocks on user click)
+// =========================================================================
+const AudioEng = (() => {
+  let ctx = null, master = null, osc1 = null, osc2 = null, subOsc = null;
+  let lfo = null, lfoGain = null, filter = null, noiseGain = null, shaper = null;
+  let ready = false;
+
+  function makeCurve(amount) {
+    const n = 256, curve = new Float32Array(n);
+    for (let i = 0; i < n; i++) {
+      const x = (i * 2) / n - 1;
+      curve[i] = ((3 + amount) * x * 20 * (Math.PI / 180)) / (Math.PI + amount * Math.abs(x));
+    }
+    return curve;
+  }
+
+  function init() {
+    if (ready) return;
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return;
+    ctx = new AC();
+
+    master = ctx.createGain();
+    master.gain.value = 0;
+    master.connect(ctx.destination);
+
+    filter = ctx.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.value = 260;
+    filter.Q.value = 2.2;
+
+    shaper = ctx.createWaveShaper();
+    shaper.curve = makeCurve(18);
+    shaper.oversample = '2x';
+
+    shaper.connect(filter);
+    filter.connect(master);
+
+    // Primary firing-frequency sawtooth (engine note)
+    osc1 = ctx.createOscillator();
+    osc1.type = 'sawtooth';
+    const g1 = ctx.createGain();
+    g1.gain.value = 0.34;
+    osc1.connect(g1); g1.connect(shaper);
+
+    // Second harmonic / bank-interval oscillator
+    osc2 = ctx.createOscillator();
+    osc2.type = 'triangle';
+    const g2 = ctx.createGain();
+    g2.gain.value = 0.28;
+    osc2.connect(g2); g2.connect(shaper);
+
+    // Deep sub-bass thump
+    subOsc = ctx.createOscillator();
+    subOsc.type = 'sine';
+    const gSub = ctx.createGain();
+    gSub.gain.value = 0.42;
+    subOsc.connect(gSub); gSub.connect(filter);
+
+    // Amplitude modulation LFO for V8 burble / I3 thump
+    lfo = ctx.createOscillator();
+    lfo.type = 'sine';
+    lfoGain = ctx.createGain();
+    lfoGain.gain.value = 0.08;
+    lfo.connect(lfoGain);
+    lfoGain.connect(g1.gain);
+
+    // Soft filtered exhaust air hiss
+    const bufLen = ctx.sampleRate * 1.5;
+    const noiseBuf = ctx.createBuffer(1, bufLen, ctx.sampleRate);
+    const data = noiseBuf.getChannelData(0);
+    for (let i = 0; i < bufLen; i++) data[i] = Math.random() * 2 - 1;
+    const noiseSrc = ctx.createBufferSource();
+    noiseSrc.buffer = noiseBuf;
+    noiseSrc.loop = true;
+    const nFilter = ctx.createBiquadFilter();
+    nFilter.type = 'bandpass';
+    nFilter.frequency.value = 320;
+    nFilter.Q.value = 0.9;
+    noiseGain = ctx.createGain();
+    noiseGain.gain.value = 0.05;
+    noiseSrc.connect(nFilter);
+    nFilter.connect(noiseGain);
+    noiseGain.connect(master);
+
+    osc1.start(); osc2.start(); subOsc.start(); lfo.start(); noiseSrc.start();
+    ready = true;
+  }
+
+  function update() {
+    if (!ready || !ctx) return;
+    const now = ctx.currentTime;
+    const active = S.soundOn && !S.paused;
+    const E = ENGINES[S.engId];
+    const rpm = getRpm();
+    const rps = rpm / 60;
+    // Fundamental firing frequency: (RPM / 60) * (cylinders / 2)
+    const fireHz = clamp(rps * E.audio.order, 16, 420);
+
+    osc1.frequency.setTargetAtTime(fireHz, now, 0.04);
+    // Harmonic pairing varies by configuration for distinct acoustic signatures
+    const mult2 = S.engId === 'V8' ? 0.5 : (S.engId === 'I3' ? 2.0 : (S.engId === 'W12' ? 1.5 : 2.0));
+    osc2.frequency.setTargetAtTime(clamp(fireHz * mult2, 18, 720), now, 0.04);
+    subOsc.frequency.setTargetAtTime(clamp(fireHz * 0.5, 22, 160), now, 0.04);
+
+    // LFO creates unmistakable V8 cross-plane lope or I3 thump
+    const lfoHz = clamp(rps * (S.engId === 'V8' ? 1.0 : 0.5), 1.5, 35);
+    lfo.frequency.setTargetAtTime(lfoHz, now, 0.04);
+    lfoGain.gain.setTargetAtTime(E.audio.rumble * 0.22, now, 0.05);
+
+    const cutoff = 160 + (rpm / 6000) * (900 + E.audio.tone * 750);
+    filter.frequency.setTargetAtTime(cutoff, now, 0.04);
+    noiseGain.gain.setTargetAtTime(0.02 + (rpm / 6000) * 0.07, now, 0.05);
+
+    const vol = active ? (0.14 + (rpm / 6000) * 0.08) : 0;
+    master.gain.setTargetAtTime(vol, now, 0.06);
+  }
+
+  function toggle() {
+    S.soundOn = !S.soundOn;
+    if (S.soundOn) {
+      init();
+      if (ctx && ctx.state === 'suspended') ctx.resume();
+    }
+    update();
+  }
+
+  return { toggle, update };
+})();
+
+// =========================================================================
+// BUILD ENGINE PICKER BUTTONS
+// =========================================================================
+const engBtnEls = {};
+(() => {
+  const host = $('engineButtons');
+  ENGINE_ORDER.forEach((id, i) => {
+    const E = ENGINES[id];
+    const col = i % 3, row = Math.floor(i / 3);
+    const x = 1072 + col * 162, y = 118 + row * 60;
+    const g = el('g', { class: 'btn', 'data-eng': id }, host);
+    const rect = el('rect', { x, y, width: 152, height: 52, rx: 13, fill: '#f1f5f9', stroke: '#cbd5e1', 'stroke-width': 2.5 }, g);
+    const t1 = txt({ x: x + 76, y: y + 24, 'text-anchor': 'middle', 'font-size': 21, fill: '#1e293b' }, E.short, g);
+    const t2 = txt({ x: x + 76, y: y + 43, 'text-anchor': 'middle', 'font-size': 13, 'font-weight': 'normal', fill: '#64748b' }, E.sub, g);
+    g.addEventListener('click', () => selectEngine(id));
+    engBtnEls[id] = { g, rect, t1, t2 };
+  });
+})();
+
+function updateEngineButtons() {
+  const E = ENGINES[S.engId];
+  ENGINE_ORDER.forEach(id => {
+    const b = engBtnEls[id];
+    const on = id === S.engId;
+    const col = ENGINES[id].color;
+    b.rect.setAttribute('fill', on ? col : '#f8fafc');
+    b.rect.setAttribute('stroke', on ? '#1e293b' : '#cbd5e1');
+    b.rect.setAttribute('stroke-width', on ? 3 : 2);
+    b.t1.setAttribute('fill', on ? '#fff' : '#1e293b');
+    b.t2.setAttribute('fill', on ? '#fef9c3' : '#64748b');
+  });
+  $('engBadge').textContent = `${E.cylinders} cyls · ${E.shapeLabel}`;
+  $('plateText').textContent = E.plate;
+  $('shapePill').textContent = E.shapeLabel;
+  $('firingLabel').textContent = E.firingText;
+  $('smoothTitle').textContent = E.smoothTitle;
+  $('smoothSub').textContent = E.smoothSub;
+}
+
+function updateTipButtons() {
+  const modes = [
+    ['real', 'tipBtnReal', '#0ea5e9', '#0369a1'],
+    ['split', 'tipBtnSplit', '#8b5cf6', '#5b21b6'],
+    ['fake', 'tipBtnFake', '#f59e0b', '#b45309'],
+  ];
+  modes.forEach(([m, id, fill, stroke]) => {
+    const g = $(id);
+    const rect = g.querySelector('rect');
+    const text = g.querySelector('text');
+    const on = S.tipMode === m;
+    rect.setAttribute('fill', on ? fill : '#e2e8f0');
+    rect.setAttribute('stroke', on ? stroke : '#94a3b8');
+    text.setAttribute('fill', on ? '#fff' : '#334155');
+  });
+}
+
+// =========================================================================
+// REBUILD SCENE GEOMETRY WHEN ENGINE OR TIP MODE CHANGES
+// =========================================================================
+let crossUI = null;
+let topUI = null;
+let underPaths = [];      // array of { bankIdx, pts: [[x,y],...], tipIdx }
+let rearTipCoords = [];   // array of { x, y, bankIdx, isFake, tipRing }
+
+function polylineAt(pts, t) {
+  let total = 0;
+  const lens = [];
+  for (let i = 1; i < pts.length; i++) {
+    const d = Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]);
+    lens.push(d);
+    total += d;
+  }
+  let target = clamp(t, 0, 1) * total;
+  for (let i = 0; i < lens.length; i++) {
+    if (target <= lens[i] || i === lens.length - 1) {
+      const f = lens[i] ? target / lens[i] : 0;
+      return [lerp(pts[i][0], pts[i + 1][0], f), lerp(pts[i][1], pts[i + 1][1], f)];
+    }
+    target -= lens[i];
+  }
+  return pts[pts.length - 1];
+}
+
+function drawPipePath(pts, col, darkCol, parent, width = 13, highlight = false) {
+  const d = pts.map((p, i) => `${i === 0 ? 'M' : 'L'}${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(' ');
+  const g = el('g', {}, parent);
+  if (highlight) {
+    el('path', { d, fill: 'none', stroke: '#facc15', 'stroke-width': width + 9, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', opacity: 0.75 }, g);
+  }
+  el('path', { d, fill: 'none', stroke: darkCol, 'stroke-width': width + 4, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, g);
+  el('path', { d, fill: 'none', stroke: col, 'stroke-width': width, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, g);
+  el('path', { d, fill: 'none', stroke: '#fff', 'stroke-width': 2.5, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', opacity: 0.4 }, g);
+  return g;
+}
+
+function buildUnderbodyAndRear() {
+  const E = ENGINES[S.engId];
+  const spec = getExhaustSpec();
+  const ub = $('underbodyPipes');
+  const rt = $('rearTips');
+  ub.innerHTML = '';
+  rt.innerHTML = '';
+  underPaths = [];
+  rearTipCoords = [];
+
+  // Mini engine banks inside the hood box (x: 86..228, y: 178..320)
+  if (E.realPaths === 1) {
+    const hl0 = S.highlightBank === 0;
+    el('rect', {
+      x: 102, y: 222, width: 110, height: 52, rx: 10,
+      fill: BANK_LIGHT[0], stroke: hl0 ? '#facc15' : BANK_COL[0], 'stroke-width': hl0 ? 5 : 3
+    }, ub);
+    txt({ x: 157, y: 245, 'text-anchor': 'middle', 'font-size': 15, fill: BANK_DARK[0] }, `${E.cylinders} cyls`, ub);
+    txt({ x: 157, y: 264, 'text-anchor': 'middle', 'font-size': 12, fill: BANK_DARK[0] }, '1 row', ub);
+  } else {
+    const rowsPerBank = E.rows === 4 ? '2 rows (6)' : `1 row (${E.cylinders / 2})`;
+    [0, 1].forEach(b => {
+      const y = b === 0 ? 204 : 258;
+      const hl = S.highlightBank === b;
+      el('rect', {
+        x: 102, y, width: 110, height: 42, rx: 9,
+        fill: BANK_LIGHT[b], stroke: hl ? '#facc15' : BANK_COL[b], 'stroke-width': hl ? 5 : 3
+      }, ub);
+      txt({ x: 157, y: y + 18, 'text-anchor': 'middle', 'font-size': 13, fill: BANK_DARK[b] }, b === 0 ? 'Left bank' : 'Right bank', ub);
+      txt({ x: 157, y: y + 34, 'text-anchor': 'middle', 'font-size': 11, fill: BANK_DARK[b] }, rowsPerBank, ub);
+    });
+  }
+
+  // Compute underbody pipe geometry from engine (x=212) to rear bumper edge (x=668)
+  const tipY = pos => 249 + pos * 76; // maps pos (-0.78..0.78) to y (190..308)
+
+  if (spec.paths === 1) {
+    const hl0 = S.highlightBank === 0;
+    if (!spec.isSplit && !spec.hasFake) {
+      // Single straight pipe to 1 tailpipe
+      const yEnd = tipY(spec.tips[0].pos);
+      const pts = [[212, 249], [310, 249], [360, 275], [510, 275], [565, yEnd], [674, yEnd]];
+      drawPipePath(pts, BANK_COL[0], BANK_DARK[0], ub, 12, hl0);
+      // Muffler box
+      el('rect', { x: 470, y: 260, width: 74, height: 32, rx: 10, fill: '#cbd5e1', stroke: '#475569', 'stroke-width': 2.5 }, ub);
+      txt({ x: 507, y: 281, 'text-anchor': 'middle', 'font-size': 11, fill: '#334155' }, 'muffler', ub);
+      underPaths.push({ bankIdx: 0, pts, tipIdx: 0 });
+    } else if (spec.isSplit) {
+      // 1 pipe from engine -> Y-split at muffler -> 2 tailpipes!
+      const yA = tipY(spec.tips[0].pos);
+      const yB = tipY(spec.tips[1].pos);
+      const ptsA = [[212, 249], [460, 249], [520, 249], [575, yA], [674, yA]];
+      const ptsB = [[212, 249], [460, 249], [520, 249], [575, yB], [674, yB]];
+      drawPipePath(ptsA, BANK_COL[0], BANK_DARK[0], ub, 11, hl0);
+      drawPipePath(ptsB, BANK_COL[0], BANK_DARK[0], ub, 11, hl0);
+      // Muffler + Y-split badge
+      el('rect', { x: 454, y: 232, width: 76, height: 34, rx: 10, fill: '#ede9fe', stroke: '#6d28d9', 'stroke-width': 2.5 }, ub);
+      txt({ x: 492, y: 254, 'text-anchor': 'middle', 'font-size': 12, fill: '#5b21b6' }, 'Y-SPLIT!', ub);
+      underPaths.push({ bankIdx: 0, pts: ptsA, tipIdx: 0 });
+      underPaths.push({ bankIdx: 0, pts: ptsB, tipIdx: 1 });
+    } else {
+      // Fake tip mode: 1 real pipe to bottom tip + disconnected decoy on top!
+      const yFake = tipY(spec.tips[0].pos);
+      const yReal = tipY(spec.tips[1].pos);
+      const ptsR = [[212, 249], [320, 249], [375, yReal], [674, yReal]];
+      drawPipePath(ptsR, BANK_COL[0], BANK_DARK[0], ub, 12, hl0);
+      el('rect', { x: 468, y: yReal - 16, width: 74, height: 32, rx: 10, fill: '#cbd5e1', stroke: '#475569', 'stroke-width': 2.5 }, ub);
+      txt({ x: 505, y: yReal + 4, 'text-anchor': 'middle', 'font-size': 11, fill: '#334155' }, 'muffler', ub);
+      // Disconnected fake tip stub at bumper
+      el('line', { x1: 540, y1: yFake, x2: 642, y2: yFake, stroke: '#94a3b8', 'stroke-width': 3, 'stroke-dasharray': '6 6' }, ub);
+      el('rect', { x: 644, y: yFake - 9, width: 30, height: 18, rx: 5, fill: '#cbd5e1', stroke: '#475569', 'stroke-width': 2 }, ub);
+      el('rect', { x: 452, y: yFake - 15, width: 146, height: 28, rx: 9, fill: '#fef3c7', stroke: '#d97706', 'stroke-width': 2 }, ub);
+      txt({ x: 525, y: yFake + 4, 'text-anchor': 'middle', 'font-size': 12, fill: '#92400e' }, '✂️ no pipe! (fake)', ub);
+      underPaths.push({ bankIdx: 0, pts: ptsR, tipIdx: 1 });
+    }
+  } else {
+    // 2 real exhaust paths (Bank 0 orange top, Bank 1 blue bottom)
+    [0, 1].forEach(b => {
+      const yStart = b === 0 ? 224 : 276;
+      const hl = S.highlightBank === b;
+      const bankTips = spec.tips
+        .map((t, idx) => ({ ...t, idx }))
+        .filter(t => t.bankIdx === b);
+
+      if (bankTips.length === 1) {
+        const yEnd = tipY(bankTips[0].pos);
+        const pts = [[212, yStart], [330, yStart], [390, yEnd], [674, yEnd]];
+        drawPipePath(pts, BANK_COL[b], BANK_DARK[b], ub, 11, hl);
+        el('rect', { x: 468, y: yEnd - 14, width: 68, height: 28, rx: 9, fill: '#cbd5e1', stroke: '#475569', 'stroke-width': 2 }, ub);
+        txt({ x: 502, y: yEnd + 4, 'text-anchor': 'middle', 'font-size': 10, fill: '#334155' }, 'muffler', ub);
+        underPaths.push({ bankIdx: b, pts, tipIdx: bankTips[0].idx });
+      } else if (bankTips.length === 2) {
+        // Splits into 2 tips per bank (4 total!)
+        const yMid = (tipY(bankTips[0].pos) + tipY(bankTips[1].pos)) / 2;
+        bankTips.forEach(bt => {
+          const yEnd = tipY(bt.pos);
+          const pts = [[212, yStart], [340, yStart], [420, yMid], [520, yMid], [575, yEnd], [674, yEnd]];
+          drawPipePath(pts, BANK_COL[b], BANK_DARK[b], ub, 10, hl);
+          underPaths.push({ bankIdx: b, pts, tipIdx: bt.idx });
+        });
+        el('rect', { x: 462, y: yMid - 14, width: 70, height: 28, rx: 9, fill: '#ede9fe', stroke: '#6d28d9', 'stroke-width': 2 }, ub);
+        txt({ x: 497, y: yMid + 4, 'text-anchor': 'middle', 'font-size': 11, fill: '#5b21b6' }, 'Y-SPLIT', ub);
+      }
+    });
+
+    if (spec.hasFake) {
+      spec.tips.forEach(t => {
+        if (!t.isFake) return;
+        const yF = tipY(t.pos);
+        el('line', { x1: 586, y1: yF, x2: 644, y2: yF, stroke: '#94a3b8', 'stroke-width': 2.5, 'stroke-dasharray': '5 5' }, ub);
+        el('rect', { x: 646, y: yF - 8, width: 28, height: 16, rx: 4, fill: '#cbd5e1', stroke: '#475569', 'stroke-width': 2 }, ub);
+        el('rect', { x: 516, y: yF - 12, width: 74, height: 22, rx: 7, fill: '#fef3c7', stroke: '#d97706', 'stroke-width': 1.8 }, ub);
+        txt({ x: 553, y: yF + 3, 'text-anchor': 'middle', 'font-size': 11, fill: '#92400e' }, 'fake! 😅', ub);
+      });
+    }
+  }
+
+  // Draw rear bumper tailpipe tips (interactive: click any tip to trace its bank!)
+  spec.tips.forEach((t, idx) => {
+    const cx = 865 + t.pos * 108;
+    const cy = 294;
+    const g = el('g', { class: 'btn' }, rt);
+    const hl = (t.isFake && S.highlightBank === 2) || (!t.isFake && S.highlightBank === t.bankIdx);
+    const ringCol = t.isFake ? '#f59e0b' : BANK_COL[t.bankIdx];
+
+    // Hit area
+    el('circle', { cx, cy, r: 22, fill: 'transparent' }, g);
+    if (hl) {
+      el('circle', { cx, cy, r: 19, fill: 'none', stroke: '#facc15', 'stroke-width': 5 }, g);
+    }
+    // Outer chrome ring
+    el('circle', { cx, cy, r: 14, fill: 'url(#metalGrad)', stroke: ringCol, 'stroke-width': 3.5 }, g);
+    // Inner dark bore (or blocked plate if fake!)
+    if (t.isFake) {
+      el('circle', { cx, cy, r: 8.5, fill: '#475569' }, g);
+      el('line', { x1: cx - 5, y1: cy - 5, x2: cx + 5, y2: cy + 5, stroke: '#fbbf24', 'stroke-width': 2.5, 'stroke-linecap': 'round' }, g);
+      el('line', { x1: cx + 5, y1: cy - 5, x2: cx - 5, y2: cy + 5, stroke: '#fbbf24', 'stroke-width': 2.5, 'stroke-linecap': 'round' }, g);
+      txt({ x: cx, y: cy + 28, 'text-anchor': 'middle', 'font-size': 12, fill: '#92400e' }, 'fake', g);
+    } else {
+      el('circle', { cx, cy, r: 8.5, fill: '#0f172a' }, g);
+      txt({ x: cx, y: cy + 28, 'text-anchor': 'middle', 'font-size': 11, fill: BANK_DARK[t.bankIdx] },
+          E.realPaths === 1 ? 'real' : (t.bankIdx === 0 ? 'left' : 'right'), g);
+    }
+
+    g.addEventListener('click', () => {
+      S.highlightBank = t.isFake ? 2 : t.bankIdx;
+      S.highlightTimer = 3.5;
+      buildUnderbodyAndRear();
+      updateMessage();
+    });
+
+    rearTipCoords.push({ x: cx, y: cy, bankIdx: t.bankIdx, isFake: t.isFake });
+  });
+
+  // Update stat counters at bottom of top-left panel
+  $('statRows').textContent = `Cylinder rows: ${E.rows}`;
+  $('statPaths').textContent = `Real exhaust paths: ${spec.paths}`;
+  const mismatch = spec.tipsCount !== spec.paths;
+  $('statTips').textContent = `Visible tailpipes: ${spec.tipsCount}${spec.hasFake ? ' (some fake!)' : (spec.isSplit ? ' (Y-split!)' : '')}`;
+  $('statTipsBox').setAttribute('fill', mismatch ? '#fef3c7' : '#dcfce7');
+  $('statTipsBox').setAttribute('stroke', mismatch ? '#f59e0b' : '#22c55e');
+  $('statTips').setAttribute('fill', mismatch ? '#92400e' : '#166534');
+}
+
+// =========================================================================
+// BUILD END-ON CROSS SECTION (LEFT HALF OF BOTTOM PANEL)
+// =========================================================================
+function buildCrossSection() {
+  const E = ENGINES[S.engId];
+  const host = $('crossSection');
+  host.innerHTML = '';
+
+  const CX = 347, CY = 714; // crankshaft center
+  const isW = E.id === 'W12';
+  const R = isW ? 22 : 27;            // crank throw radius
+  const ROD = isW ? 74 : 84;          // connecting rod length
+  const BORE = isW ? 32 : 44;         // piston width
+  const PISTON_H = isW ? 20 : 24;
+  const SLEEVE_BOT = isW ? 44 : 46;   // distance from crank center to bottom of cylinder sleeve
+  const SLEEVE_TOP = isW ? 126 : 144; // distance from crank center to top head of cylinder
+
+  // Subtle background letter watermark showing I / V / W shape!
+  txt({
+    x: CX, y: 625, 'text-anchor': 'middle', 'font-size': 142,
+    fill: '#e2e8f0', opacity: 0.45
+  }, E.shapeLetter, host);
+
+  // Depth-stack silhouette behind straight-row engines so kids immediately see "3/4/6 behind each other!"
+  if (E.rows === 1) {
+    const n = E.cylinders;
+    for (let k = n - 1; k >= 1; k--) {
+      const dx = k * 14, dy = -k * 6;
+      el('rect', {
+        x: CX - BORE / 2 - 7 + dx, y: CY - SLEEVE_TOP - 8 + dy,
+        width: BORE + 14, height: SLEEVE_TOP - SLEEVE_BOT + 12, rx: 7,
+        fill: '#e2e8f0', stroke: '#94a3b8', 'stroke-width': 2, opacity: clamp(0.85 - k * 0.1, 0.25, 0.85)
+      }, host);
+    }
+    txt({
+      x: CX + n * 14 + 36, y: CY - SLEEVE_TOP - 2,
+      'font-size': 14, fill: '#475569'
+    }, `×${n} lined up`, host);
+    txt({
+      x: CX + n * 14 + 36, y: CY - SLEEVE_TOP + 16,
+      'font-size': 13, 'font-weight': 'normal', fill: '#64748b'
+    }, 'behind each other!', host);
+  } else {
+    const perRow = E.cylinders / E.rows;
+    txt({
+      x: 64, y: 525, 'font-size': 13, 'font-weight': 'normal', fill: '#64748b'
+    }, `${E.rows} tilted rows × ${perRow} deep = ${E.cylinders} cylinders`, host);
+  }
+
+  // Crankcase outer housing
+  el('circle', { cx: CX, cy: CY, r: isW ? 44 : 50, fill: '#cbd5e1', stroke: '#475569', 'stroke-width': 3 }, host);
+
+  // Build each cylinder bank sleeve (rotated around CX, CY)
+  const bankEls = E.crossBanks.map((b, bi) => {
+    const g = el('g', { transform: `translate(${CX} ${CY}) rotate(${b.angleDeg})` }, host);
+    const col = BANK_COL[b.bankIdx];
+    const dark = BANK_DARK[b.bankIdx];
+    const halfB = BORE / 2;
+
+    // Cylinder block outer walls
+    el('rect', {
+      x: -halfB - 7, y: -SLEEVE_TOP - 9, width: BORE + 14, height: SLEEVE_TOP - SLEEVE_BOT + 12,
+      rx: 7, fill: '#94a3b8', stroke: '#334155', 'stroke-width': 2.5
+    }, g);
+
+    // Exhaust port pipe sticking out to the exhaust side
+    const side = b.exhaustSide;
+    const portX = side > 0 ? halfB + 5 : -halfB - 27;
+    el('rect', {
+      x: portX, y: -SLEEVE_TOP + 4, width: 22, height: 14, rx: 4,
+      fill: col, stroke: dark, 'stroke-width': 2
+    }, g);
+
+    // Intake port (opposite side on I/V, top-inner on W)
+    const inX = side > 0 ? -halfB - 21 : halfB + 3;
+    el('rect', {
+      x: inX, y: -SLEEVE_TOP + 4, width: 18, height: 12, rx: 3,
+      fill: '#93c5fd', stroke: '#1d4ed8', 'stroke-width': 1.8
+    }, g);
+
+    // Inner cylinder bore background
+    el('rect', {
+      x: -halfB, y: -SLEEVE_TOP, width: BORE, height: SLEEVE_TOP - SLEEVE_BOT + 6,
+      rx: 3, fill: '#f8fafc', stroke: '#475569', 'stroke-width': 1.5
+    }, g);
+
+    // Combustion chamber gas fill (height dynamically matches piston top!)
+    const chamber = el('rect', {
+      x: -halfB + 1, y: -SLEEVE_TOP + 1, width: BORE - 2, height: 20, rx: 2,
+      fill: '#60a5fa', opacity: 0.65
+    }, g);
+
+    // Spark plug + BOOM flash at top center
+    el('rect', { x: -3.5, y: -SLEEVE_TOP - 15, width: 7, height: 15, rx: 2, fill: '#f8fafc', stroke: '#334155', 'stroke-width': 1.5 }, g);
+    const spark = el('circle', { cx: 0, cy: -SLEEVE_TOP + 11, r: isW ? 12 : 16, fill: 'url(#boomGrad)', opacity: 0 }, g);
+
+    // Tiny intake & exhaust valves that pop down when open
+    const exValve = el('line', {
+      x1: side * (halfB * 0.45), y1: -SLEEVE_TOP - 1,
+      x2: side * (halfB * 0.45), y2: -SLEEVE_TOP + 6,
+      stroke: dark, 'stroke-width': 4, 'stroke-linecap': 'round'
+    }, g);
+    const inValve = el('line', {
+      x1: -side * (halfB * 0.45), y1: -SLEEVE_TOP - 1,
+      x2: -side * (halfB * 0.45), y2: -SLEEVE_TOP + 6,
+      stroke: '#1d4ed8', 'stroke-width': 4, 'stroke-linecap': 'round'
+    }, g);
+
+    // Connecting rod (drawn in local cylinder frame from crankpin to wrist pin)
+    const rod = el('line', { stroke: '#475569', 'stroke-width': isW ? 5.5 : 7, 'stroke-linecap': 'round' }, g);
+
+    // Piston body + rings
+    const pistonG = el('g', {}, g);
+    el('rect', {
+      x: -halfB + 2, y: 0, width: BORE - 4, height: PISTON_H, rx: 4,
+      fill: '#e2e8f0', stroke: '#1e293b', 'stroke-width': 2
+    }, pistonG);
+    el('line', { x1: -halfB + 3, y1: 5, x2: halfB - 3, y2: 5, stroke: '#64748b', 'stroke-width': 2 }, pistonG);
+    el('line', { x1: -halfB + 3, y1: 9, x2: halfB - 3, y2: 9, stroke: '#64748b', 'stroke-width': 2 }, pistonG);
+    el('circle', { cx: 0, cy: PISTON_H * 0.62, r: 3.5, fill: '#475569' }, pistonG);
+
+    // Calculate world-space coordinates of exhaust port exit for puff spawning
+    const rad = b.angleDeg * RAD;
+    const lx = side * (halfB + 28);
+    const ly = -SLEEVE_TOP + 11;
+    const portWorldX = CX + lx * Math.cos(rad) - ly * Math.sin(rad);
+    const portWorldY = CY + lx * Math.sin(rad) + ly * Math.cos(rad);
+    const dirX = side * Math.cos(rad);
+    const dirY = side * Math.sin(rad);
+
+    return {
+      bank: b, g, chamber, spark, exValve, inValve, rod, pistonG,
+      portWorldX, portWorldY, dirX, dirY
+    };
+  });
+
+  // Crankshaft wheel on top of crankcase center
+  const crankG = el('g', { transform: `translate(${CX} ${CY})` }, host);
+  const crankSpin = el('g', {}, crankG);
+  el('circle', { r: R + 8, fill: '#64748b', stroke: '#1e293b', 'stroke-width': 3 }, crankSpin);
+  // Counterweight crescent
+  el('path', {
+    d: `M ${-R - 5} 0 A ${R + 5} ${R + 5} 0 0 0 ${R + 5} 0 L 0 4 Z`,
+    fill: '#334155'
+  }, crankSpin);
+  el('circle', { cx: 0, cy: -R, r: 6.5, fill: '#facc15', stroke: '#713f12', 'stroke-width': 2 }, crankSpin);
+  el('circle', { r: 8, fill: '#e2e8f0', stroke: '#1e293b', 'stroke-width': 2.5 }, crankG);
+  txt({ x: CX, y: CY + (isW ? 60 : 65), 'text-anchor': 'middle', 'font-size': 13, fill: '#475569' }, 'crankshaft', host);
+
+  crossUI = { CX, CY, R, ROD, PISTON_H, SLEEVE_TOP, bankEls, crankSpin };
+}
+
+// =========================================================================
+// BUILD TOP-DOWN CYLINDER MAP (RIGHT HALF OF BOTTOM PANEL)
+// =========================================================================
+function buildTopView() {
+  const E = ENGINES[S.engId];
+  const host = $('topView');
+  host.innerHTML = '';
+
+  const blockX = 710, blockW = 510;
+  const centerY = 614;
+  const cols = E.cylinders / E.rows;
+
+  // Engine block outline (sized to keep exhaust pipes cleanly inside y: 518..710)
+  const blockH = E.rows === 1 ? 82 : (E.rows === 2 ? 116 : 136);
+  el('rect', {
+    x: blockX, y: centerY - blockH / 2, width: blockW, height: blockH, rx: 18,
+    fill: '#e2e8f0', stroke: '#475569', 'stroke-width': 3
+  }, host);
+
+  // Draw exhaust collector manifold pipe(s) along the outer edge(s) heading right -> exit
+  const pipeExitX = 1528;
+  const bankCollectorY = E.realPaths === 1
+    ? [centerY - blockH / 2 - 26]
+    : [centerY - blockH / 2 - 18, centerY + blockH / 2 + 18];
+
+  bankCollectorY.forEach((py, b) => {
+    const pts = [[blockX + 36, py], [blockX + blockW + 46, py], [pipeExitX, py]];
+    drawPipePath(pts, BANK_COL[b], BANK_DARK[b], host, 12, S.highlightBank === b);
+    const label = E.realPaths === 1 ? '1 exhaust pipe →' : (b === 0 ? 'Left exhaust pipe →' : 'Right exhaust pipe →');
+    // Place label inward toward centerY so it never collides with panel header or bottom border
+    const labelY = E.realPaths === 1 ? py + 25 : (b === 0 ? py + 23 : py - 14);
+    txt({
+      x: blockX + blockW + 24, y: labelY,
+      'font-size': 14, fill: BANK_DARK[b]
+    }, label, host);
+  });
+
+  // Compute each cylinder's (x, y) position
+  const cylR = E.rows === 4 ? 15 : (E.rows === 2 ? 22 : (cols >= 6 ? 24 : 28));
+  const padX = cols >= 6 ? 54 : (cols === 4 ? 74 : 102);
+  const stepX = cols > 1 ? (blockW - padX * 2) / (cols - 1) : 0;
+
+  const rowYs = E.rows === 1
+    ? [centerY]
+    : E.rows === 2
+      ? [centerY - 28, centerY + 28]
+      : [centerY - 48, centerY - 16, centerY + 16, centerY + 48];
+
+  const cylNodes = E.cyls.map(c => {
+    // Stagger inner rows of W12 slightly so it looks like a real W12 block!
+    const stagger = E.rows === 4 && (c.row === 1 || c.row === 2) ? 26 : (E.rows === 4 ? -12 : 0);
+    const cx = blockX + padX + c.col * stepX + stagger;
+    const cy = rowYs[c.row];
+    const py = bankCollectorY[c.bankIdx];
+
+    // Manifold runner connecting this cylinder to its bank's collector pipe
+    el('line', {
+      x1: cx, y1: cy, x2: cx, y2: py,
+      stroke: BANK_DARK[c.bankIdx], 'stroke-width': 9, 'stroke-linecap': 'round'
+    }, host);
+    el('line', {
+      x1: cx, y1: cy, x2: cx, y2: py,
+      stroke: BANK_COL[c.bankIdx], 'stroke-width': 5.5, 'stroke-linecap': 'round'
+    }, host);
+
+    // Cylinder circle
+    const outer = el('circle', {
+      cx, cy, r: cylR + 3,
+      fill: '#94a3b8', stroke: '#334155', 'stroke-width': 2.5
+    }, host);
+    const fill = el('circle', {
+      cx, cy, r: cylR - 2,
+      fill: '#60a5fa', stroke: '#1e293b', 'stroke-width': 1.5
+    }, host);
+    const boomRing = el('circle', {
+      cx, cy, r: cylR + 6, fill: 'none', stroke: '#facc15', 'stroke-width': 4.5, opacity: 0
+    }, host);
+    const numTxt = txt({
+      x: cx, y: cy + (E.rows === 4 ? 5 : 6), 'text-anchor': 'middle', 'font-size': E.rows === 4 ? 13 : 17, fill: '#fff'
+    }, String(c.num), host);
+    const strokeTxt = txt({
+      x: cx, y: cy + cylR + 24, 'text-anchor': 'middle',
+      'font-size': 12, fill: '#475569', opacity: E.rows === 1 ? 1 : 0
+    }, '', host);
+
+    return { c, cx, cy, py, pipeExitX, outer, fill, boomRing, numTxt, strokeTxt };
+  });
+
+  topUI = { cylNodes, bankCollectorY, pipeExitX };
+}
+
+// =========================================================================
+// STROKE HELPER & MESSAGE ENGINE
+// =========================================================================
+// Returns { idx: 0..3, local: 0..180, name, fill }
+function getStroke(crankDeg, phaseDeg) {
+  const a = wrap(crankDeg - phaseDeg, 720);
+  if (a < 180) return { idx: 0, local: a, name: 'BOOM!', fill: '#f97316' };
+  if (a < 360) return { idx: 1, local: a - 180, name: 'puff', fill: '#94a3b8' };
+  if (a < 540) return { idx: 2, local: a - 360, name: 'air in', fill: '#60a5fa' };
+  return { idx: 3, local: a - 540, name: 'squeeze', fill: '#fbbf24' };
+}
+
+let lastMsgKey = '';
+function updateMessage() {
+  const E = ENGINES[S.engId];
+  const spec = getExhaustSpec();
+  let emo = '🚗', text = E.desc, border = E.color;
+
+  if (S.highlightBank === 2 && spec.hasFake) {
+    emo = '🎭';
+    text = '<b>BUSTED! That tailpipe is FAKE!</b> There is no pipe behind it—car designers sometimes add a shiny extra tip just so the bumper looks sporty and symmetrical!';
+    border = '#f59e0b';
+  } else if (S.highlightBank === 0 || S.highlightBank === 1) {
+    const bName = E.realPaths === 1 ? 'the <b>single row</b>' : (S.highlightBank === 0 ? 'the <b>orange left bank</b>' : 'the <b>blue right bank</b>');
+    emo = '🔍';
+    text = `<b>TRACING THAT TAILPIPE:</b> Follow the glowing pipe forward! Every puff from this tip comes from ${bName} of cylinders in the <b>${E.name}</b> engine.`;
+    border = BANK_COL[S.highlightBank];
+  } else if (S.tipMode === 'fake') {
+    emo = '🎭';
+    text = `<b>FAKE TIP TRICK!</b> This ${E.name} has <b>${spec.paths} real exhaust ${spec.paths === 1 ? 'path' : 'paths'}</b>, but the bumper shows <b>${spec.tipsCount} tips</b>! Tap the X-marked tips to see they aren’t even hooked up!`;
+    border = '#f59e0b';
+  } else if (S.tipMode === 'split') {
+    emo = '🔀';
+    text = `<b>Y-SPLIT TIPS!</b> Even with <b>${spec.paths} exhaust ${spec.paths === 1 ? 'path' : 'paths'}</b> leaving the ${E.name}, a Y-shaped splitter at the back splits ${spec.paths === 1 ? 'it into 2' : 'each into 2 (4 total!)'} real puffing tailpipes!`;
+    border = '#8b5cf6';
+  } else if (getRpm() < 320) {
+    emo = '🐢';
+    text = `<b>SUPER SLOW-MO (${getRpm()} RPM):</b> Watch the 4 steps in each cylinder—<b>1. Air in</b> (blue), <b>2. Squeeze</b> (yellow), <b>3. BOOM!</b> (orange flash), <b>4. Exhaust puff</b> shooting out into the pipe!`;
+    border = '#16a34a';
+  }
+
+  const key = emo + text + border;
+  if (key !== lastMsgKey) {
+    $('msgEmo').textContent = emo;
+    $('msgText').innerHTML = text;
+    $('msg').style.borderColor = border;
+    lastMsgKey = key;
+  }
+}
+
+// =========================================================================
+// PUFF SPAWNERS & PARTICLE POOLS
+// =========================================================================
+function spawnUnderPuff(bankIdx) {
+  const candidates = underPaths.filter(p => p.bankIdx === bankIdx);
+  if (!candidates.length) return;
+  candidates.forEach(p => {
+    if (S.underPuffs.length > 42) return;
+    const node = el('circle', { r: 6, fill: '#64748b', stroke: '#fff', 'stroke-width': 1.5, opacity: 0.9 }, $('underbodyPuffs'));
+    S.underPuffs.push({ path: p, t: 0, node, bankIdx });
+  });
+}
+
+function spawnRearPuff(tipIdx) {
+  const tc = rearTipCoords[tipIdx];
+  if (!tc || tc.isFake || S.rearPuffs.length > 44) return;
+  const node = el('circle', {
+    cx: tc.x, cy: tc.y, r: 7,
+    fill: '#cbd5e1', stroke: '#64748b', 'stroke-width': 1.5, opacity: 0.85
+  }, $('rearPuffs'));
+  S.rearPuffs.push({
+    x: tc.x, y: tc.y,
+    vx: (Math.random() - 0.5) * 28,
+    vy: 20 + Math.random() * 24,
+    r: 7, life: 0, maxLife: 0.75, node
+  });
+}
+
+function spawnCrossPuff(be) {
+  if (S.crossPuffs.length > 30) return;
+  const node = el('circle', {
+    cx: be.portWorldX, cy: be.portWorldY, r: 6.5,
+    fill: BANK_LIGHT[be.bank.bankIdx], stroke: BANK_COL[be.bank.bankIdx], 'stroke-width': 2, opacity: 0.9
+  }, $('crossPuffs'));
+  S.crossPuffs.push({
+    x: be.portWorldX, y: be.portWorldY,
+    vx: be.dirX * 56 + (Math.random() - 0.5) * 14,
+    vy: be.dirY * 56 - 12 + (Math.random() - 0.5) * 10,
+    r: 6.5, life: 0, maxLife: 0.65, node
+  });
+}
+
+function spawnTopPuff(cn) {
+  if (S.topPuffs.length > 48) return;
+  const node = el('circle', {
+    cx: cn.cx, cy: cn.py, r: 5.5,
+    fill: '#f1f5f9', stroke: BANK_DARK[cn.c.bankIdx], 'stroke-width': 1.5, opacity: 0.95
+  }, $('topPuffs'));
+  S.topPuffs.push({
+    x: cn.cx, y: cn.py, exitX: cn.pipeExitX,
+    speed: 220 + (getRpm() / 6000) * 260, node
+  });
+}
+
+function spawnBeat(bankIdx, cylNum) {
+  if (S.beats.length > 36) {
+    const old = S.beats.shift();
+    old.node.remove();
+  }
+  const g = el('g', {}, $('beatTrack'));
+  el('rect', { x: -10, y: 740, width: 20, height: 32, rx: 6, fill: BANK_COL[bankIdx], stroke: '#fef08a', 'stroke-width': 2 }, g);
+  txt({ x: 0, y: 761, 'text-anchor': 'middle', 'font-size': 12, fill: '#fff' }, String(cylNum), g);
+  S.beats.push({ x: 772, node: g });
+}
+
+function clearParticles() {
+  ['underbodyPuffs', 'rearPuffs', 'crossPuffs', 'topPuffs', 'beatTrack'].forEach(id => $(id).innerHTML = '');
+  S.underPuffs = [];
+  S.rearPuffs = [];
+  S.crossPuffs = [];
+  S.topPuffs = [];
+  S.beats = [];
+}
+
+// =========================================================================
+// SELECTION & CONTROLS
+// =========================================================================
+function selectEngine(id) {
+  S.engId = id;
+  S.highlightBank = -1;
+  S.highlightTimer = 0;
+  S.prevStrokes = ENGINES[id].cyls.map(() => -1);
+  clearParticles();
+  updateEngineButtons();
+  buildUnderbodyAndRear();
+  buildCrossSection();
+  buildTopView();
+  updateMessage();
+  AudioEng.update();
+}
+
+function setTipMode(mode) {
+  S.tipMode = mode;
+  S.highlightBank = -1;
+  S.highlightTimer = 0;
+  clearParticles();
+  updateTipButtons();
+  buildUnderbodyAndRear();
+  updateMessage();
+}
+
+function updateRpmUI() {
+  const rpm = getRpm();
+  const x = 1094 + S.rpmNorm * 432;
+  $('rpmFill').setAttribute('width', Math.max(8, S.rpmNorm * 432).toFixed(1));
+  $('rpmKnob').setAttribute('transform', `translate(${x.toFixed(1)} 300)`);
+  const mood = rpm < 320 ? '🐢 super slow' : (rpm < 1200 ? '🚗 idling' : (rpm < 3400 ? '💨 cruising' : '🏎️ zooming!'));
+  $('rpmReadout').textContent = `${rpm} RPM · ${mood}`;
+  AudioEng.update();
+  updateMessage();
+}
+
+function updateControlButtons() {
+  $('soundRect').setAttribute('fill', S.soundOn ? '#0ea5e9' : '#e2e8f0');
+  $('soundRect').setAttribute('stroke', S.soundOn ? '#0369a1' : '#94a3b8');
+  $('soundText').setAttribute('fill', S.soundOn ? '#fff' : '#334155');
+  $('soundText').textContent = S.soundOn ? '🔊 SOUND: ON' : '🔇 SOUND: OFF';
+
+  $('pauseRect').setAttribute('fill', S.paused ? '#f59e0b' : '#22c55e');
+  $('pauseRect').setAttribute('stroke', S.paused ? '#b45309' : '#15803d');
+  $('pauseText').textContent = S.paused ? '▶ PLAY' : '⏸ PAUSE';
+}
+
+// =========================================================================
+// ANIMATION LOOP
+// =========================================================================
+function step(dt) {
+  const E = ENGINES[S.engId];
+
+  if (S.highlightTimer > 0) {
+    S.highlightTimer -= dt;
+    if (S.highlightTimer <= 0) {
+      S.highlightBank = -1;
+      buildUnderbodyAndRear();
+      buildTopView();
+      updateMessage();
+    }
+  }
+
+  if (!S.paused) {
+    const degPerSec = getVisualDegPerSec();
+    S.crankDeg = wrap(S.crankDeg + degPerSec * dt, 720);
+
+    // 1. Update Top-View Cylinders & trigger firing/exhaust events
+    topUI.cylNodes.forEach((cn, i) => {
+      const st = getStroke(S.crankDeg, cn.c.phaseDeg);
+      const prev = S.prevStrokes[i];
+      if (prev !== st.idx) {
+        if (st.idx === 0 && prev !== -1) {
+          // BOOM started!
+          spawnBeat(cn.c.bankIdx, cn.c.num);
+        }
+        if (st.idx === 1 && prev !== -1) {
+          // Exhaust started!
+          spawnTopPuff(cn);
+          spawnUnderPuff(cn.c.bankIdx);
+        }
+        S.prevStrokes[i] = st.idx;
+      }
+
+      cn.fill.setAttribute('fill', st.fill);
+      const boomFlash = st.idx === 0 ? clamp(1 - st.local / 90, 0, 1) : 0;
+      cn.boomRing.setAttribute('opacity', boomFlash.toFixed(2));
+      if (E.rows === 1) cn.strokeTxt.textContent = st.name;
+    });
+
+    // 2. Update End-On Cross-Section Pistons, Rods, Valves, Sparks
+    const { R, ROD, PISTON_H, SLEEVE_TOP, bankEls, crankSpin } = crossUI;
+    crankSpin.setAttribute('transform', `rotate(${S.crankDeg.toFixed(1)})`);
+
+    bankEls.forEach(be => {
+      const cyl = E.cyls[be.bank.cylIdx];
+      const st = getStroke(S.crankDeg, cyl.phaseDeg);
+      // Crank angle relative to this cylinder's TDC (0 = TDC, 180 = BDC)
+      const phiDeg = wrap(S.crankDeg - cyl.phaseDeg, 360);
+      const phi = phiDeg * RAD;
+
+      // Crankpin position in local cylinder coordinates (up is -y)
+      const px = R * Math.sin(phi);
+      const py = -R * Math.cos(phi);
+
+      // True slider-crank wrist-pin distance up the cylinder axis
+      const wristDist = R * Math.cos(phi) + Math.sqrt(Math.max(1, ROD * ROD - px * px));
+      const wristY = -wristDist;
+      const pistonTopY = wristY - PISTON_H * 0.62;
+
+      be.pistonG.setAttribute('transform', `translate(0 ${pistonTopY.toFixed(1)})`);
+      be.rod.setAttribute('x1', px.toFixed(1));
+      be.rod.setAttribute('y1', py.toFixed(1));
+      be.rod.setAttribute('x2', '0');
+      be.rod.setAttribute('y2', wristY.toFixed(1));
+
+      // Combustion chamber height & color
+      const chH = Math.max(4, (pistonTopY) - (-SLEEVE_TOP + 1));
+      be.chamber.setAttribute('height', chH.toFixed(1));
+      be.chamber.setAttribute('fill', st.fill);
+      const chOp = st.idx === 0 ? 0.92 : (st.idx === 3 ? 0.55 + (st.local / 180) * 0.35 : 0.55);
+      be.chamber.setAttribute('opacity', chOp.toFixed(2));
+
+      // Spark flash right at TDC firing
+      const spOp = st.idx === 0 ? clamp(1 - st.local / 65, 0, 1) : 0;
+      be.spark.setAttribute('opacity', spOp.toFixed(2));
+
+      // Valves open smoothly on intake (idx 2) and exhaust (idx 1)
+      const exOpen = st.idx === 1 ? Math.sin((st.local / 180) * Math.PI) * 8 : 0;
+      const inOpen = st.idx === 2 ? Math.sin((st.local / 180) * Math.PI) * 8 : 0;
+      be.exValve.setAttribute('y2', (-SLEEVE_TOP + 6 + exOpen).toFixed(1));
+      be.inValve.setAttribute('y2', (-SLEEVE_TOP + 6 + inOpen).toFixed(1));
+
+      // Spawn cross-section exhaust puff mid-exhaust stroke
+      if (st.idx === 1 && st.local > 20 && st.local < 45 && !be._puffed) {
+        spawnCrossPuff(be);
+        be._puffed = true;
+      } else if (st.idx !== 1) {
+        be._puffed = false;
+      }
+    });
+
+    // 3. Advance Underbody Pipe Puffs -> spawn Rear Tailpipe Clouds when they exit!
+    const pipeSpeed = 0.72 + (getRpm() / 6000) * 1.1;
+    for (let i = S.underPuffs.length - 1; i >= 0; i--) {
+      const p = S.underPuffs[i];
+      p.t += pipeSpeed * dt;
+      if (p.t >= 1) {
+        spawnRearPuff(p.path.tipIdx);
+        p.node.remove();
+        S.underPuffs.splice(i, 1);
+      } else {
+        const [x, y] = polylineAt(p.path.pts, p.t);
+        p.node.setAttribute('cx', x.toFixed(1));
+        p.node.setAttribute('cy', y.toFixed(1));
+      }
+    }
+
+    // 4. Advance Rear Bumper Exhaust Clouds
+    for (let i = S.rearPuffs.length - 1; i >= 0; i--) {
+      const p = S.rearPuffs[i];
+      p.life += dt;
+      if (p.life >= p.maxLife) {
+        p.node.remove();
+        S.rearPuffs.splice(i, 1);
+      } else {
+        const f = p.life / p.maxLife;
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+        p.node.setAttribute('cx', p.x.toFixed(1));
+        p.node.setAttribute('cy', p.y.toFixed(1));
+        p.node.setAttribute('r', (p.r + f * 13).toFixed(1));
+        p.node.setAttribute('opacity', ((1 - f) * 0.75).toFixed(2));
+      }
+    }
+
+    // 5. Advance Cross-Section Exhaust Puffs
+    for (let i = S.crossPuffs.length - 1; i >= 0; i--) {
+      const p = S.crossPuffs[i];
+      p.life += dt;
+      if (p.life >= p.maxLife) {
+        p.node.remove();
+        S.crossPuffs.splice(i, 1);
+      } else {
+        const f = p.life / p.maxLife;
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+        p.node.setAttribute('cx', p.x.toFixed(1));
+        p.node.setAttribute('cy', p.y.toFixed(1));
+        p.node.setAttribute('r', (p.r + f * 9).toFixed(1));
+        p.node.setAttribute('opacity', ((1 - f) * 0.85).toFixed(2));
+      }
+    }
+
+    // 6. Advance Top-View Manifold Puffs
+    for (let i = S.topPuffs.length - 1; i >= 0; i--) {
+      const p = S.topPuffs[i];
+      p.x += p.speed * dt;
+      if (p.x >= p.exitX) {
+        p.node.remove();
+        S.topPuffs.splice(i, 1);
+      } else {
+        p.node.setAttribute('cx', p.x.toFixed(1));
+      }
+    }
+
+    // 7. Scroll Firing Rhythm Beats rightward across the bar
+    const beatSpeed = 140; // constant px/sec so kids directly compare beat spacing across engines & RPM!
+    for (let i = S.beats.length - 1; i >= 0; i--) {
+      const b = S.beats[i];
+      b.x += beatSpeed * dt;
+      if (b.x > 1395) {
+        b.node.remove();
+        S.beats.splice(i, 1);
+      } else {
+        b.node.setAttribute('transform', `translate(${b.x.toFixed(1)} 0)`);
+      }
+    }
+  }
+}
+
+// =========================================================================
+// INPUT HANDLING (Pointer + Keyboard)
+// =========================================================================
+const svg = $('svg');
+function svgPt(e) {
+  const p = svg.createSVGPoint();
+  p.x = e.clientX; p.y = e.clientY;
+  return p.matrixTransform(svg.getScreenCTM().inverse());
+}
+
+let draggingRpm = false;
+const rpmGroup = $('rpmSliderGroup');
+function setRpmFromEvent(e) {
+  const pt = svgPt(e);
+  S.rpmNorm = clamp((pt.x - 1094) / 432, 0, 1);
+  updateRpmUI();
+}
+rpmGroup.addEventListener('pointerdown', e => {
+  draggingRpm = true;
+  rpmGroup.setPointerCapture(e.pointerId);
+  setRpmFromEvent(e);
+  e.preventDefault();
+});
+rpmGroup.addEventListener('pointermove', e => {
+  if (draggingRpm) setRpmFromEvent(e);
+});
+const stopRpmDrag = () => { draggingRpm = false; };
+rpmGroup.addEventListener('pointerup', stopRpmDrag);
+rpmGroup.addEventListener('pointercancel', stopRpmDrag);
+
+document.querySelectorAll('[data-tipmode]').forEach(btn => {
+  btn.addEventListener('click', () => setTipMode(btn.dataset.tipmode));
+});
+
+$('soundBtn').addEventListener('click', () => {
+  AudioEng.toggle();
+  updateControlButtons();
+});
+
+$('pauseBtn').addEventListener('click', () => {
+  S.paused = !S.paused;
+  updateControlButtons();
+  AudioEng.update();
+});
+
+addEventListener('keydown', e => {
+  const k = e.key.toLowerCase();
+  if (k >= '1' && k <= '6') selectEngine(ENGINE_ORDER[Number(k) - 1]);
+  else if (k === 'm') { AudioEng.toggle(); updateControlButtons(); }
+  else if (k === ' ') { S.paused = !S.paused; updateControlButtons(); AudioEng.update(); e.preventDefault(); }
+  else if (k === 'arrowright' || k === 'arrowup') { S.rpmNorm = clamp(S.rpmNorm + 0.08, 0, 1); updateRpmUI(); e.preventDefault(); }
+  else if (k === 'arrowleft' || k === 'arrowdown') { S.rpmNorm = clamp(S.rpmNorm - 0.08, 0, 1); updateRpmUI(); e.preventDefault(); }
+  else if (k === 't') {
+    const order = ['real', 'split', 'fake'];
+    setTipMode(order[(order.indexOf(S.tipMode) + 1) % order.length]);
+  }
+});
+
+// =========================================================================
+// BOOT
+// =========================================================================
+updateTipButtons();
+updateControlButtons();
+selectEngine('V8');
+updateRpmUI();
+
+let last = performance.now();
+function loop(now) {
+  const dt = Math.min(0.05, (now - last) / 1000);
+  last = now;
+  step(dt);
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
