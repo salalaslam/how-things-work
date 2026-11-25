@@ -1,0 +1,1671 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How a Microwave Works</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #fdf6e3; overflow: hidden; }
+  body { font-family: "Chalkboard SE", "Comic Sans MS", "Comic Neue", system-ui, sans-serif; }
+  svg { display: block; width: 100vw; height: 100vh; touch-action: none; }
+  text { user-select: none; -webkit-user-select: none; }
+  .btn { cursor: pointer; }
+  .btn:hover > rect, .btn:hover > circle { filter: brightness(1.08); }
+  .btn:active > rect, .btn:active > circle { filter: brightness(0.95); }
+  .part { cursor: pointer; }
+  .part:hover { filter: brightness(1.06); }
+  #pwrKnob { cursor: grab; }
+  #pwrKnob:active { cursor: grabbing; }
+  .ptitle { font-size: 21px; font-weight: bold; }
+  .msg {
+    box-sizing: border-box; height: 100%; display: flex; align-items: center; gap: 18px;
+    padding: 0 24px; background: #fff; border: 5px solid #94a3b8; border-radius: 20px;
+    font-size: 22px; line-height: 1.25; color: #1e293b; transition: border-color .25s;
+  }
+  .msg .emo { font-size: 42px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+<svg id="svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Interactive animation showing how a microwave oven works">
+  <defs>
+    <linearGradient id="kitchenBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ede9fe"/><stop offset="1" stop-color="#f8fafc"/>
+    </linearGradient>
+    <linearGradient id="bodyGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f1f5f9"/><stop offset="1" stop-color="#cbd5e1"/>
+    </linearGradient>
+    <linearGradient id="cavityLit" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fef9c3"/><stop offset="1" stop-color="#fef3c7"/>
+    </linearGradient>
+    <linearGradient id="cavityDark" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e2e8f0"/><stop offset="1" stop-color="#cbd5e1"/>
+    </linearGradient>
+    <linearGradient id="pwrFillGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#38bdf8"/><stop offset="0.5" stop-color="#a855f7"/><stop offset="1" stop-color="#ef4444"/>
+    </linearGradient>
+    <linearGradient id="waveGlow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#a855f7" stop-opacity="0.15"/>
+      <stop offset="0.5" stop-color="#c084fc" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#a855f7" stop-opacity="0.15"/>
+    </linearGradient>
+    <radialGradient id="magCore" cx="50%" cy="50%" r="55%">
+      <stop offset="0" stop-color="#fef08a"/><stop offset="0.45" stop-color="#c084fc"/><stop offset="1" stop-color="#6d28d9"/>
+    </radialGradient>
+    <pattern id="doorMeshPat" width="10" height="10" patternUnits="userSpaceOnUse">
+      <circle cx="5" cy="5" r="2.2" fill="#0f172a" opacity="0.14"/>
+    </pattern>
+    <filter id="glowSoft" x="-35%" y="-35%" width="170%" height="170%">
+      <feGaussianBlur stdDeviation="4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <clipPath id="mwClip"><rect x="32" y="72" width="996" height="346" rx="20"/></clipPath>
+    <clipPath id="cavityClip"><rect x="74" y="146" width="576" height="202" rx="8"/></clipPath>
+    <clipPath id="molClip"><rect x="48" y="514" width="720" height="270" rx="14"/></clipPath>
+    <clipPath id="meshClip"><rect x="788" y="514" width="386" height="270" rx="14"/></clipPath>
+  </defs>
+
+  <!-- ================= HEADER ================= -->
+  <a href="../" aria-label="Back to all machines">
+    <g class="btn">
+      <rect x="30" y="15" width="158" height="38" rx="19" fill="#fff" stroke="#94a3b8" stroke-width="2.5"/>
+      <text x="109" y="40" text-anchor="middle" font-size="17" font-weight="bold" fill="#334155">← All machines</text>
+    </g>
+  </a>
+  <text x="845" y="46" text-anchor="middle" font-size="34" font-weight="bold" fill="#1e293b">How does a MICROWAVE work?</text>
+
+  <!-- ================= TOP-LEFT: MICROWAVE X-RAY CUTAWAY ================= -->
+  <rect x="30" y="70" width="1000" height="350" rx="22" fill="url(#kitchenBg)"/>
+  <g clip-path="url(#mwClip)">
+    <!-- Outer microwave housing -->
+    <rect x="52" y="124" width="956" height="244" rx="18" fill="url(#bodyGrad)" stroke="#475569" stroke-width="3.5"/>
+    <!-- Rubber feet -->
+    <rect x="86" y="366" width="52" height="8" rx="4" fill="#334155"/>
+    <rect x="920" y="366" width="52" height="8" rx="4" fill="#334155"/>
+
+    <!-- ===== COOKING CAVITY (METAL BOX) ===== -->
+    <g id="cavityPart" class="part">
+      <rect x="68" y="140" width="588" height="214" rx="12" fill="#64748b" stroke="#1e293b" stroke-width="3"/>
+      <rect id="cavityBg" x="74" y="146" width="576" height="202" rx="8" fill="url(#cavityLit)" stroke="#94a3b8" stroke-width="2"/>
+    </g>
+
+    <!-- Inside cavity dynamic layers -->
+    <g clip-path="url(#cavityClip)">
+      <!-- Ceiling bulb -->
+      <ellipse cx="362" cy="148" rx="34" ry="8" fill="#fef08a" stroke="#eab308" stroke-width="2"/>
+      <polygon id="lightCone" points="328,154 396,154 530,348 194,348" fill="#fef08a" opacity="0.22"/>
+
+      <!-- Standing wave hot/cold bands (strongest visibility when turntable OFF) -->
+      <g id="standingBands"></g>
+
+      <!-- Bouncing microwave beams inside cavity -->
+      <g id="cavityWaves"></g>
+
+      <!-- Turntable base & spinning glass plate -->
+      <g id="turntablePart" class="part">
+        <rect x="344" y="334" width="36" height="14" rx="3" fill="#475569"/>
+        <ellipse cx="362" cy="330" rx="154" ry="13" fill="#cbd5e1" stroke="#475569" stroke-width="2.5"/>
+        <ellipse cx="362" cy="326" rx="146" ry="11" fill="#e0f2fe" stroke="#38bdf8" stroke-width="2"/>
+        <g id="turntableTicks"></g>
+        <text x="118" y="340" font-size="12" font-weight="bold" fill="#475569">turntable</text>
+      </g>
+
+      <!-- Food sits on the turntable -->
+      <g id="foodLayer" class="part"></g>
+      <!-- Steam / sparks / popped popcorn particles -->
+      <g id="cavityFx"></g>
+
+      <!-- Subtle front door mesh tint when shut -->
+      <rect id="doorMeshOverlay" x="74" y="146" width="576" height="202" rx="8" fill="url(#doorMeshPat)" pointer-events="none"/>
+      <text x="86" y="165" font-size="12" font-weight="bold" fill="#475569">METAL WALLS (waves bounce!)</text>
+    </g>
+
+    <!-- Swung-open door flap (visible when door is open) -->
+    <g id="openDoorGroup" display="none">
+      <path d="M 68 140 L 34 126 L 34 366 L 68 354 Z" fill="#334155" stroke="#0f172a" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M 62 152 L 42 142 L 42 350 L 62 342 Z" fill="#94a3b8" opacity="0.65"/>
+      <rect x="242" y="218" width="240" height="50" rx="14" fill="#fef2f2" stroke="#ef4444" stroke-width="3"/>
+      <text x="362" y="241" text-anchor="middle" font-size="16" font-weight="bold" fill="#b91c1c">🚪 DOOR OPEN!</text>
+      <text x="362" y="260" text-anchor="middle" font-size="13" font-weight="bold" fill="#7f1d1d">Safety switch cut the power</text>
+    </g>
+
+    <!-- Door safety interlock switch indicator -->
+    <g id="latchPart" class="part">
+      <rect id="latchBox" x="636" y="330" width="22" height="18" rx="4" fill="#22c55e" stroke="#14532d" stroke-width="2"/>
+      <circle id="latchDot" cx="647" cy="339" r="4" fill="#dcfce7"/>
+    </g>
+
+    <!-- ===== RIGHT SIDE: X-RAY MACHINERY BAY ===== -->
+    <rect x="668" y="140" width="326" height="214" rx="12" fill="#1e293b" stroke="#0f172a" stroke-width="3"/>
+    <text x="680" y="157" font-size="12" font-weight="bold" fill="#94a3b8">HIDDEN MACHINERY (tap any part!)</text>
+
+    <!-- Waveguide tunnel (connects magnetron to cavity) -->
+    <g id="waveguidePart" class="part">
+      <rect x="646" y="172" width="114" height="44" rx="6" fill="#64748b" stroke="#cbd5e1" stroke-width="2.5"/>
+      <rect x="648" y="178" width="110" height="32" fill="#334155"/>
+      <g id="waveguidePulses"></g>
+      <text x="703" y="232" text-anchor="middle" font-size="12" font-weight="bold" fill="#e2e8f0">WAVEGUIDE</text>
+    </g>
+
+    <!-- Magnetron -->
+    <g id="magnetronPart" class="part">
+      <!-- Cooling fins -->
+      <g stroke="#94a3b8" stroke-width="3">
+        <line x1="762" y1="164" x2="862" y2="164"/>
+        <line x1="762" y1="174" x2="862" y2="174"/>
+        <line x1="762" y1="216" x2="862" y2="216"/>
+        <line x1="762" y1="226" x2="862" y2="226"/>
+      </g>
+      <rect x="758" y="168" width="108" height="54" rx="12" fill="#b45309" stroke="#fde68a" stroke-width="2.5"/>
+      <circle cx="812" cy="195" r="21" fill="#312e81" stroke="#c084fc" stroke-width="2.5"/>
+      <circle id="magGlow" cx="812" cy="195" r="18" fill="url(#magCore)" opacity="0.85"/>
+      <g id="magRing" transform="translate(812 195)">
+        <circle cx="0" cy="-12" r="3" fill="#fef08a"/>
+        <circle cx="10.4" cy="6" r="3" fill="#fef08a"/>
+        <circle cx="-10.4" cy="6" r="3" fill="#fef08a"/>
+      </g>
+      <text x="812" y="242" text-anchor="middle" font-size="13" font-weight="bold" fill="#fde047">MAGNETRON</text>
+      <text x="812" y="255" text-anchor="middle" font-size="11" fill="#cbd5e1">makes the waves</text>
+    </g>
+
+    <!-- Cooling Fan -->
+    <g id="fanPart" class="part">
+      <circle cx="934" cy="202" r="34" fill="#334155" stroke="#94a3b8" stroke-width="2.5"/>
+      <g id="fanBlades" transform="translate(934 202)">
+        <ellipse cx="0" cy="-14" rx="7" ry="15" fill="#64748b"/>
+        <ellipse cx="0" cy="-14" rx="7" ry="15" fill="#64748b" transform="rotate(90)"/>
+        <ellipse cx="0" cy="-14" rx="7" ry="15" fill="#64748b" transform="rotate(180)"/>
+        <ellipse cx="0" cy="-14" rx="7" ry="15" fill="#64748b" transform="rotate(270)"/>
+        <circle r="6" fill="#e2e8f0"/>
+      </g>
+      <text x="934" y="251" text-anchor="middle" font-size="11" font-weight="bold" fill="#cbd5e1">cooling fan</text>
+    </g>
+
+    <!-- High-Voltage Transformer -->
+    <g id="transformerPart" class="part">
+      <!-- Wire from transformer to magnetron (routed neatly around label) -->
+      <path d="M 852 272 V 256 H 878 V 196 H 866" fill="none" stroke="#f59e0b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- Wall plug wire -->
+      <path d="M 870 306 H 988" fill="none" stroke="#fbbf24" stroke-width="4" stroke-linecap="round"/>
+      <g id="powerDots"></g>
+      <rect x="756" y="272" width="114" height="62" rx="10" fill="#475569" stroke="#94a3b8" stroke-width="2.5"/>
+      <rect x="768" y="282" width="38" height="42" rx="5" fill="#d97706" stroke="#fde68a" stroke-width="2"/>
+      <rect x="820" y="282" width="38" height="42" rx="5" fill="#ea580c" stroke="#fde68a" stroke-width="2"/>
+      <text x="787" y="308" text-anchor="middle" font-size="13" font-weight="bold" fill="#fff">120V</text>
+      <text x="839" y="308" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">2000V</text>
+      <text x="813" y="348" text-anchor="middle" font-size="12" font-weight="bold" fill="#fdba74">TRANSFORMER ⚡</text>
+      <!-- Plug icon on far right -->
+      <rect x="976" y="294" width="16" height="24" rx="4" fill="#e2e8f0" stroke="#475569" stroke-width="2"/>
+      <text x="930" y="297" text-anchor="middle" font-size="11" font-weight="bold" fill="#fef08a">wall power</text>
+    </g>
+
+    <!-- Bottom pill counters inside top-left panel -->
+    <g id="statBar">
+      <rect x="52" y="376" width="306" height="32" rx="11" fill="#fff" stroke="#cbd5e1" stroke-width="2"/>
+      <text id="statPower" x="205" y="397" text-anchor="middle" font-size="15" font-weight="bold" fill="#334155"></text>
+
+      <rect x="372" y="376" width="310" height="32" rx="11" fill="#fff" stroke="#cbd5e1" stroke-width="2"/>
+      <text id="statWaves" x="527" y="397" text-anchor="middle" font-size="15" font-weight="bold" fill="#6d28d9"></text>
+
+      <rect id="statTempBox" x="696" y="376" width="312" height="32" rx="11" fill="#fff" stroke="#cbd5e1" stroke-width="2"/>
+      <text id="statTemp" x="852" y="397" text-anchor="middle" font-size="15" font-weight="bold" fill="#334155"></text>
+    </g>
+  </g>
+  <rect x="30" y="70" width="1000" height="350" rx="22" fill="none" stroke="#64748b" stroke-width="3"/>
+  <text x="52" y="104" class="ptitle" fill="#334155">THE MICROWAVE (X-RAY)</text>
+
+  <!-- Top-left header interactive pills -->
+  <g class="btn" id="turntableBtn">
+    <rect id="ttRect" x="520" y="80" width="178" height="34" rx="10" fill="#0ea5e9" stroke="#0369a1" stroke-width="2"/>
+    <text id="ttText" x="609" y="103" text-anchor="middle" font-size="15" font-weight="bold" fill="#fff">🔄 Turntable: ON</text>
+  </g>
+  <g class="btn" id="doorBtn">
+    <rect id="doorRect" x="706" y="80" width="156" height="34" rx="10" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2"/>
+    <text id="doorText" x="784" y="103" text-anchor="middle" font-size="15" font-weight="bold" fill="#334155">🚪 Door: SHUT</text>
+  </g>
+  <g class="btn" id="slowBtn">
+    <rect id="slowRect" x="870" y="80" width="144" height="34" rx="10" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2"/>
+    <text id="slowText" x="942" y="103" text-anchor="middle" font-size="15" font-weight="bold" fill="#334155">🐢 Slow-mo</text>
+  </g>
+
+  <!-- ================= TOP-RIGHT: FOOD PICKER & POWER CONTROLS ================= -->
+  <rect x="1050" y="70" width="520" height="350" rx="22" fill="#fff" stroke="#8b5cf6" stroke-width="3"/>
+  <text x="1072" y="102" class="ptitle" fill="#7c3aed">PUT SOMETHING INSIDE</text>
+  <text id="foodBadge" x="1548" y="100" text-anchor="end" font-size="14" font-weight="bold" fill="#64748b">Lots of water</text>
+
+  <!-- 6 Food buttons (3x2 grid) -->
+  <g id="foodButtons"></g>
+
+  <!-- Power Slider -->
+  <rect x="1072" y="246" width="476" height="90" rx="16" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="1088" y="272" font-size="16" font-weight="bold" fill="#334155">⚡ POWER LEVEL</text>
+  <text id="pwrReadout" x="1532" y="272" text-anchor="end" font-size="17" font-weight="bold" fill="#7c3aed">1000 W · Full power!</text>
+
+  <g id="pwrSliderGroup" style="cursor:pointer;">
+    <rect x="1090" y="284" width="440" height="32" fill="transparent"/>
+    <rect x="1094" y="292" width="432" height="16" rx="8" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2"/>
+    <rect id="pwrFill" x="1094" y="292" width="380" height="16" rx="8" fill="url(#pwrFillGrad)"/>
+    <g id="pwrKnob" transform="translate(1474 300)">
+      <circle r="17" fill="#8b5cf6" stroke="#4c1d95" stroke-width="3"/>
+      <circle cx="-4" cy="-5" r="4.5" fill="#fff" opacity="0.6"/>
+    </g>
+  </g>
+  <text x="1094" y="328" font-size="13" font-weight="bold" fill="#0284c7">❄️ defrost (20%)</text>
+  <text x="1264" y="328" text-anchor="middle" font-size="13" font-weight="bold" fill="#64748b">warm (50%)</text>
+  <text x="1414" y="328" text-anchor="middle" font-size="13" font-weight="bold" fill="#64748b">high (80%)</text>
+  <text x="1526" y="328" text-anchor="end" font-size="13" font-weight="bold" fill="#dc2626">🔥 MAX!</text>
+
+  <!-- Sound & Cook/Pause Buttons -->
+  <g class="btn" id="soundBtn">
+    <rect id="soundRect" x="1072" y="348" width="232" height="54" rx="14" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2.5"/>
+    <text id="soundText" x="1188" y="383" text-anchor="middle" font-size="20" font-weight="bold" fill="#334155">🔇 SOUND: OFF</text>
+  </g>
+  <g class="btn" id="cookBtn">
+    <rect id="cookRect" x="1316" y="348" width="232" height="54" rx="14" fill="#22c55e" stroke="#15803d" stroke-width="2.5"/>
+    <text id="cookText" x="1432" y="383" text-anchor="middle" font-size="20" font-weight="bold" fill="#fff">⏸ PAUSE</text>
+  </g>
+
+  <!-- ================= BOTTOM: ZOOM IN (MOLECULES + MESH + HEAT) ================= -->
+  <rect x="30" y="435" width="1540" height="365" rx="22" fill="#fff" stroke="#6366f1" stroke-width="3"/>
+  <text x="52" y="466" class="ptitle" fill="#4f46e5">ZOOM IN <tspan font-size="16" font-weight="normal" fill="#64748b">(what the invisible waves actually do!)</tspan></text>
+
+  <!-- Legend -->
+  <g transform="translate(650 460)" font-size="15" font-weight="bold" fill="#334155">
+    <circle cx="0" cy="-5" r="8" fill="#ef4444" stroke="#991b1b" stroke-width="1.5"/>
+    <circle cx="-7" cy="-12" r="4.5" fill="#60a5fa" stroke="#1d4ed8" stroke-width="1.2"/>
+    <circle cx="7" cy="-12" r="4.5" fill="#60a5fa" stroke="#1d4ed8" stroke-width="1.2"/>
+    <text x="16" y="0">Water (H₂O)</text>
+
+    <path d="M 142 -5 Q 150 -14 158 -5 T 174 -5" fill="none" stroke="#9333ea" stroke-width="3.5" stroke-linecap="round"/>
+    <text x="182" y="0">Microwave</text>
+
+    <circle cx="294" cy="-5" r="7" fill="#facc15" stroke="#ca8a04" stroke-width="2"/>
+    <text x="308" y="0">Bump = Heat!</text>
+  </g>
+
+  <g class="btn" id="resetBtn">
+    <rect x="1396" y="445" width="156" height="32" rx="10" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2"/>
+    <text x="1474" y="466" text-anchor="middle" font-size="15" font-weight="bold" fill="#334155">↺ Cool &amp; reset</text>
+  </g>
+
+  <!-- Sub-Panel 1: Microscopic Food Zoom -->
+  <rect x="46" y="482" width="724" height="304" rx="16" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="64" y="505" font-size="15" font-weight="bold" fill="#475569">INSIDE THE FOOD (×100,000,000 zoom)</text>
+  <rect id="molPillBox" x="562" y="488" width="194" height="26" rx="9" fill="#f3e8ff" stroke="#a855f7" stroke-width="2"/>
+  <text id="molPill" x="659" y="506" text-anchor="middle" font-size="13" font-weight="bold" fill="#6b21a8">Water flipping!</text>
+  <g clip-path="url(#molClip)">
+    <rect id="molWarmTint" x="48" y="514" width="720" height="270" fill="#fca5a5" opacity="0"/>
+    <g id="molFieldLayer"></g>
+    <g id="molParticles"></g>
+    <g id="molBumps"></g>
+  </g>
+  <text id="molCaption" x="408" y="776" text-anchor="middle" font-size="14" font-weight="bold" fill="#475569"></text>
+
+  <!-- Sub-Panel 2: Door Mesh / Faraday Cage -->
+  <g id="meshPart" class="part">
+    <rect x="786" y="482" width="390" height="304" rx="16" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="804" y="505" font-size="15" font-weight="bold" fill="#475569">WHY CAN YOU SEE INSIDE?</text>
+    <g clip-path="url(#meshClip)">
+      <rect x="788" y="514" width="188" height="270" fill="#faf5ff"/>
+      <rect x="986" y="514" width="188" height="270" fill="#f0f9ff"/>
+      <text x="880" y="534" text-anchor="middle" font-size="13" font-weight="bold" fill="#6b21a8">INSIDE OVEN</text>
+      <text x="1082" y="534" text-anchor="middle" font-size="13" font-weight="bold" fill="#0369a1">OUTSIDE (YOU)</text>
+
+      <!-- Metal mesh wall with tiny 1 mm holes -->
+      <g id="meshWall"></g>
+
+      <!-- Animated big microwave bouncing off + tiny light waves passing through -->
+      <g id="meshWaves"></g>
+
+      <!-- Eye icon on outside -->
+      <g transform="translate(1134 690)">
+        <ellipse cx="0" cy="0" rx="22" ry="13" fill="#fff" stroke="#334155" stroke-width="2.5"/>
+        <circle cx="-4" cy="0" r="7" fill="#0ea5e9"/>
+        <circle cx="-5" cy="0" r="3" fill="#0f172a"/>
+      </g>
+
+      <!-- Labels -->
+      <rect x="798" y="550" width="168" height="40" rx="9" fill="#fff" stroke="#c084fc" stroke-width="2"/>
+      <text x="882" y="567" text-anchor="middle" font-size="12" font-weight="bold" fill="#7e22ce">Microwave: 12 cm wide</text>
+      <text x="882" y="583" text-anchor="middle" font-size="12" font-weight="bold" fill="#a855f7">↩ too big! bounces back</text>
+
+      <rect x="1002" y="714" width="166" height="40" rx="9" fill="#fff" stroke="#38bdf8" stroke-width="2"/>
+      <text x="1085" y="731" text-anchor="middle" font-size="12" font-weight="bold" fill="#0369a1">Light: super tiny!</text>
+      <text x="1085" y="747" text-anchor="middle" font-size="12" font-weight="bold" fill="#0284c7">→ zips right through!</text>
+
+      <rect x="936" y="758" width="90" height="22" rx="7" fill="#fff" stroke="#94a3b8" stroke-width="1.5"/>
+      <text x="981" y="774" text-anchor="middle" font-size="12" font-weight="bold" fill="#334155">1 mm holes</text>
+    </g>
+  </g>
+
+  <!-- Sub-Panel 3: Thermometer & Heat Map -->
+  <rect x="1192" y="482" width="362" height="304" rx="16" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="1210" y="505" font-size="15" font-weight="bold" fill="#475569">HEAT &amp; EVENNESS</text>
+
+  <!-- Thermometer -->
+  <g id="thermoGroup">
+    <rect x="1220" y="524" width="20" height="194" rx="10" fill="#fff" stroke="#334155" stroke-width="2.5"/>
+    <circle cx="1230" cy="726" r="16" fill="#ef4444" stroke="#334155" stroke-width="2.5"/>
+    <rect id="thermoMerc" x="1225" y="680" width="10" height="46" fill="#ef4444"/>
+    <text id="thermoVal" x="1230" y="768" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">22 °C</text>
+  </g>
+
+  <!-- Top-down Food Heat Map (Left / Center / Right spots) -->
+  <g id="heatMapGroup" transform="translate(1446 622)">
+    <text x="0" y="-88" text-anchor="middle" font-size="13" font-weight="bold" fill="#475569">TOP VIEW HEAT MAP</text>
+    <circle r="68" fill="#e2e8f0" stroke="#64748b" stroke-width="3"/>
+    <g id="heatZones"></g>
+    <circle r="68" fill="none" stroke="#334155" stroke-width="3"/>
+    <rect id="evenPillBox" x="-84" y="84" width="168" height="32" rx="10" fill="#dcfce7" stroke="#22c55e" stroke-width="2"/>
+    <text id="evenPill" x="0" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="#166534">✅ Heating evenly!</text>
+  </g>
+
+  <!-- ================= BOTTOM EXPLANATION BANNER ================= -->
+  <foreignObject x="30" y="812" width="1540" height="80">
+    <div class="msg" id="msg"><span class="emo" id="msgEmo"></span><span id="msgText"></span></div>
+  </foreignObject>
+</svg>
+
+<script>
+const NS = 'http://www.w3.org/2000/svg';
+const $ = id => document.getElementById(id);
+function el(tag, attrs, parent) {
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(e);
+  return e;
+}
+function txt(attrs, text, parent) {
+  const t = el('text', { 'font-size': 15, 'font-weight': 'bold', fill: '#334155', ...attrs }, parent);
+  t.textContent = text;
+  return t;
+}
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const lerp = (a, b, t) => a + (b - a) * t;
+const f1 = v => v.toFixed(1);
+
+// =========================================================================
+// FOOD DEFINITIONS (real microwave physics, kid-friendly)
+// =========================================================================
+const FOODS = {
+  soup: {
+    id: 'soup', name: 'Soup', emo: '🍲', sub: 'lots of water',
+    badge: 'Lots of free water', color: '#f97316',
+    startTemp: 22, maxTemp: 100, heatRate: 14.5,
+    mode: 'water',
+    pill: 'Water flipping!', pillBg: '#f3e8ff', pillStroke: '#a855f7', pillText: '#6b21a8',
+    caption: 'Every water molecule acts like a tiny magnet (+ and −) flipping with the wave!',
+    desc: '<b>BOWL OF SOUP:</b> Soup is full of free <b>water molecules</b>. Microwaves flip them back and forth <b>2.45 billion times every second</b>—all that bumping and rubbing makes the soup piping hot!'
+  },
+  popcorn: {
+    id: 'popcorn', name: 'Popcorn', emo: '🍿', sub: 'trapped water',
+    badge: 'Water trapped in kernels', color: '#eab308',
+    startTemp: 22, maxTemp: 120, heatRate: 15.5,
+    mode: 'popcorn',
+    pill: 'Steam pressure!', pillBg: '#fef9c3', pillStroke: '#eab308', pillText: '#854d0e',
+    caption: 'Each corn kernel hides a tiny drop of water—past 100 °C it blasts into steam: POP!',
+    desc: '<b>POPCORN:</b> Inside every hard corn kernel is a <b>tiny drop of water</b>. Microwaves heat that trapped water past <b>100 °C</b> into steam until pressure bursts the hull—turning the kernel inside out!'
+  },
+  pizza: {
+    id: 'pizza', name: 'Pizza', emo: '🍕', sub: 'hot & cold spots',
+    badge: 'Try Turntable OFF!', color: '#ef4444',
+    startTemp: 16, maxTemp: 95, heatRate: 12.5,
+    mode: 'water',
+    pill: 'Sauce & cheese!', pillBg: '#fee2e2', pillStroke: '#ef4444', pillText: '#991b1b',
+    caption: 'Standing waves make hot peaks and cold dips—turn the Turntable OFF to see uneven spots!',
+    desc: '<b>COLD PIZZA:</b> Microwaves bounce off the metal walls and create <b>hot spots</b> and <b>cold spots</b>. Try clicking <b>Turntable: OFF</b> to see why the spinning plate stops one bite from staying icy!'
+  },
+  ice: {
+    id: 'ice', name: 'Ice Cube', emo: '🧊', sub: 'frozen water',
+    badge: 'Molecules locked tight!', color: '#0ea5e9',
+    startTemp: -10, maxTemp: 85, heatRate: 13.0,
+    mode: 'ice',
+    pill: 'Frozen crystal!', pillBg: '#e0f2fe', pillStroke: '#0ea5e9', pillText: '#0369a1',
+    caption: 'Ice molecules are locked in a crystal—they barely twist until the edges melt at 0 °C!',
+    desc: '<b>ICE CUBE:</b> Even though ice IS water, its molecules are <b>locked tight in a crystal grid</b> so they can barely flip! It warms super slowly until edges melt at <b>0 °C</b>—then the liquid water heats fast!'
+  },
+  plate: {
+    id: 'plate', name: 'Dry Plate', emo: '🍽️', sub: 'no water',
+    badge: 'No water molecules', color: '#10b981',
+    startTemp: 22, maxTemp: 26, heatRate: 0.4,
+    mode: 'dry',
+    pill: 'Waves pass through!', pillBg: '#dcfce7', pillStroke: '#22c55e', pillText: '#166534',
+    caption: 'Ceramic has no free water—microwaves roll right past without jiggling the atoms!',
+    desc: '<b>EMPTY CERAMIC PLATE:</b> Microwave-safe plates have <b>no free water molecules</b>, so the waves pass right through and the plate stays cool! (A plate only gets hot from hot food sitting on it.)'
+  },
+  fork: {
+    id: 'fork', name: 'Metal Fork', emo: '🍴', sub: "don't try this!",
+    badge: '⚡ DANGER: Sparks!', color: '#dc2626',
+    startTemp: 22, maxTemp: 60, heatRate: 4.0,
+    mode: 'metal',
+    pill: '⚡ Electrons zapping!', pillBg: '#fef2f2', pillStroke: '#dc2626', pillText: '#991b1b',
+    caption: 'Metal has free electrons—waves shove them into sharp fork tines until sparks jump!',
+    desc: '<b>METAL FORK (NEVER DO THIS IN REAL LIFE!):</b> Metal doesn’t absorb microwaves—it reflects them and pushes <b>free electrons</b> to sharp points like fork tines until electric <b>SPARKS ⚡</b> jump across the air!'
+  }
+};
+const FOOD_ORDER = ['soup', 'popcorn', 'pizza', 'ice', 'plate', 'fork'];
+
+// =========================================================================
+// STATE
+// =========================================================================
+const S = {
+  foodId: 'soup',
+  powerNorm: 1.0,       // 0..1 -> 200W..1000W
+  running: true,
+  doorOpen: false,
+  turntableOn: true,
+  slowMo: false,
+  soundOn: false,
+  clock: 0,
+  wavePhase: 0,
+  ttAngle: 0,
+  fanAngle: 0,
+  magAngle: 0,
+  // 5 radial/spatial heat zones across the food: [left, midLeft, center, midRight, right]
+  zones: [22, 22, 22, 22, 22],
+  poppedCount: 0,
+  dingPlayed: false,
+  sparkTimer: 0,
+  customBanner: null,   // { emo, text, border, timer }
+};
+
+function getWatts() {
+  return Math.round((200 + S.powerNorm * 800) / 50) * 50;
+}
+function isEmitting() {
+  return S.running && !S.doorOpen;
+}
+function avgTemp() {
+  return S.zones.reduce((a, b) => a + b, 0) / S.zones.length;
+}
+function tempColor(t) {
+  if (t <= 0) return '#38bdf8';
+  if (t < 28) return '#93c5fd';
+  if (t < 52) return '#fde047';
+  if (t < 75) return '#fb923c';
+  return '#ef4444';
+}
+
+// =========================================================================
+// WEB AUDIO SYNTHESIZER (starts muted; unlocks on user click)
+// =========================================================================
+const AudioEng = (() => {
+  let ctx = null, master = null, humOsc = null, hum2 = null, humGain = null;
+  let ready = false;
+
+  function init() {
+    if (ready) return;
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return;
+    ctx = new AC();
+    master = ctx.createGain();
+    master.gain.value = 0.24;
+    master.connect(ctx.destination);
+
+    humGain = ctx.createGain();
+    humGain.gain.value = 0;
+    const lp = ctx.createBiquadFilter();
+    lp.type = 'lowpass';
+    lp.frequency.value = 260;
+    humGain.connect(lp);
+    lp.connect(master);
+
+    humOsc = ctx.createOscillator();
+    humOsc.type = 'sawtooth';
+    humOsc.frequency.value = 60;
+    const g1 = ctx.createGain(); g1.gain.value = 0.45;
+    humOsc.connect(g1); g1.connect(humGain);
+
+    hum2 = ctx.createOscillator();
+    hum2.type = 'triangle';
+    hum2.frequency.value = 120;
+    const g2 = ctx.createGain(); g2.gain.value = 0.55;
+    hum2.connect(g2); g2.connect(humGain);
+
+    humOsc.start(); hum2.start();
+    ready = true;
+  }
+
+  function updateHum() {
+    if (!ready || !ctx) return;
+    const now = ctx.currentTime;
+    const active = S.soundOn && isEmitting();
+    const pwr = 0.4 + S.powerNorm * 0.6;
+    humGain.gain.setTargetAtTime(active ? 0.22 * pwr : 0, now, 0.06);
+    humOsc.frequency.setTargetAtTime(S.slowMo ? 46 : 60, now, 0.08);
+    hum2.frequency.setTargetAtTime(S.slowMo ? 92 : 120, now, 0.08);
+  }
+
+  function playBeep(freq = 880, dur = 0.08) {
+    if (!S.soundOn || !ready || !ctx) return;
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.type = 'sine'; o.frequency.value = freq;
+    g.gain.setValueAtTime(0.18, ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+    o.connect(g); g.connect(master);
+    o.start(); o.stop(ctx.currentTime + dur + 0.01);
+  }
+
+  function playDing() {
+    if (!S.soundOn || !ready || !ctx) return;
+    const now = ctx.currentTime;
+    [1318, 2637].forEach((f, idx) => {
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.type = 'sine'; o.frequency.value = f;
+      g.gain.setValueAtTime(idx === 0 ? 0.28 : 0.1, now);
+      g.gain.exponentialRampToValueAtTime(0.001, now + 0.75);
+      o.connect(g); g.connect(master);
+      o.start(now); o.stop(now + 0.78);
+    });
+  }
+
+  function playPop() {
+    if (!S.soundOn || !ready || !ctx) return;
+    const now = ctx.currentTime;
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.type = 'triangle';
+    o.frequency.setValueAtTime(220 + Math.random() * 140, now);
+    o.frequency.exponentialRampToValueAtTime(55, now + 0.065);
+    g.gain.setValueAtTime(0.32, now);
+    g.gain.exponentialRampToValueAtTime(0.001, now + 0.07);
+    o.connect(g); g.connect(master);
+    o.start(now); o.stop(now + 0.075);
+  }
+
+  function playZap() {
+    if (!S.soundOn || !ready || !ctx) return;
+    const now = ctx.currentTime;
+    const len = Math.floor(ctx.sampleRate * 0.06);
+    const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+    const d = buf.getChannelData(0);
+    for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / len);
+    const src = ctx.createBufferSource(); src.buffer = buf;
+    const bp = ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 2400;
+    const g = ctx.createGain(); g.gain.value = 0.28;
+    src.connect(bp); bp.connect(g); g.connect(master);
+    src.start(now);
+  }
+
+  function toggle() {
+    S.soundOn = !S.soundOn;
+    if (S.soundOn) {
+      init();
+      if (ctx && ctx.state === 'suspended') ctx.resume();
+      playBeep(920, 0.07);
+    }
+    updateHum();
+  }
+
+  return { toggle, updateHum, playBeep, playDing, playPop, playZap };
+})();
+
+// =========================================================================
+// STATIC SUB-SCENE BUILDERS
+// =========================================================================
+// 1. Thermometer scale markings
+(() => {
+  const g = $('thermoGroup');
+  const yOf = t => 706 - ((clamp(t, -15, 115) + 15) / 130) * 172;
+  [
+    [100, '100° boils / pops!', '#dc2626'],
+    [70,  '70° yummy hot', '#ea580c'],
+    [22,  '22° room temp', '#475569'],
+    [0,   '0° ice melts', '#0284c7'],
+  ].forEach(([t, label, col]) => {
+    const y = yOf(t);
+    el('line', { x1: 1240, y1: f1(y), x2: 1250, y2: f1(y), stroke: col, 'stroke-width': 2.5 }, g);
+    txt({ x: 1254, y: f1(y + 4), 'font-size': 11.5, fill: col }, label, g);
+  });
+})();
+
+// 2. Top-down Heat Map 5 vertical stripes clipped inside circle
+const heatZoneEls = [];
+(() => {
+  const host = $('heatZones');
+  const cp = el('clipPath', { id: 'heatDiscClip' }, $('svg').querySelector('defs'));
+  el('circle', { cx: 0, cy: 0, r: 66 }, cp);
+  const g = el('g', { 'clip-path': 'url(#heatDiscClip)' }, host);
+  const w = 136 / 5;
+  for (let i = 0; i < 5; i++) {
+    const r = el('rect', { x: -68 + i * w, y: -68, width: w + 1, height: 136, fill: '#93c5fd' }, g);
+    heatZoneEls.push(r);
+  }
+  // Subtle food outline lines on heat map
+  el('circle', { cx: 0, cy: 0, r: 44, fill: 'none', stroke: '#fff', 'stroke-width': 2, 'stroke-dasharray': '5 4', opacity: 0.65 }, g);
+})();
+
+// 3. Standing wave hot/cold bands inside cavity (5 zones matching heat map!)
+const standBandEls = [];
+(() => {
+  const host = $('standingBands');
+  // Standing wave nodes & antinodes across cavity width (x=104..620)
+  // Antinodes (HOT) at zones 0, 2, 4; Nodes (COLD) at zones 1, 3
+  const xs = [166, 264, 362, 460, 558];
+  xs.forEach((cx, i) => {
+    const hot = i % 2 === 0;
+    const g = el('g', { opacity: 0 }, host);
+    el('rect', {
+      x: cx - 44, y: 156, width: 88, height: 170, rx: 14,
+      fill: hot ? '#f97316' : '#38bdf8', opacity: hot ? 0.18 : 0.14
+    }, g);
+    txt({
+      x: cx, y: 184, 'text-anchor': 'middle', 'font-size': 12,
+      fill: hot ? '#c2410c' : '#0369a1'
+    }, hot ? '🔥 HOT' : '❄️ COLD', g);
+    standBandEls.push(g);
+  });
+})();
+
+// 4. Turntable spinning roller ticks
+const ttTicks = [];
+(() => {
+  const host = $('turntableTicks');
+  for (let i = 0; i < 8; i++) {
+    ttTicks.push(el('circle', { r: 3.5, fill: '#0284c7', opacity: 0.7 }, host));
+  }
+})();
+
+// 5. Cavity waves & waveguide pulses & power cord dots
+const cavityWavePaths = [];
+(() => {
+  const host = $('cavityWaves');
+  cavityWavePaths.push(el('path', { fill: 'none', stroke: '#a855f7', 'stroke-width': 5, 'stroke-linecap': 'round', opacity: 0.85 }, host));
+  cavityWavePaths.push(el('path', { fill: 'none', stroke: '#c084fc', 'stroke-width': 3, 'stroke-linecap': 'round', opacity: 0.6 }, host));
+  cavityWavePaths.push(el('path', { fill: 'none', stroke: '#9333ea', 'stroke-width': 3.5, 'stroke-linecap': 'round', opacity: 0.55 }, host));
+})();
+
+const wgPulses = [];
+(() => {
+  const host = $('waveguidePulses');
+  for (let i = 0; i < 5; i++) {
+    wgPulses.push(el('path', { d: 'M 0 -10 Q -6 0 0 10', fill: 'none', stroke: '#d8b4fe', 'stroke-width': 3.5, 'stroke-linecap': 'round' }, host));
+  }
+})();
+
+const pwrDots = [];
+(() => {
+  const host = $('powerDots');
+  for (let i = 0; i < 5; i++) {
+    pwrDots.push(el('circle', { r: 3.5, fill: '#fef08a' }, host));
+  }
+})();
+
+// 6. Door Mesh Wall (Sub-Panel 2)
+(() => {
+  const wall = $('meshWall');
+  // Solid metal bars with 1mm holes between them at x=976..986
+  el('rect', { x: 976, y: 514, width: 10, height: 242, fill: '#475569' }, wall);
+  for (let y = 526; y < 748; y += 16) {
+    el('rect', { x: 975, y, width: 12, height: 6, rx: 1.5, fill: '#f8fafc' }, wall);
+  }
+})();
+
+const meshWaveUI = (() => {
+  const host = $('meshWaves');
+  // Incoming big microwave (purple)
+  const mwIn = el('path', { fill: 'none', stroke: '#9333ea', 'stroke-width': 5, 'stroke-linecap': 'round' }, host);
+  // Bounced big microwave (lighter purple)
+  const mwOut = el('path', { fill: 'none', stroke: '#c084fc', 'stroke-width': 3.5, 'stroke-linecap': 'round', 'stroke-dasharray': '7 5' }, host);
+  // Bounce starburst at mesh
+  const bounceDot = el('circle', { cx: 974, cy: 628, r: 9, fill: '#e9d5ff', stroke: '#9333ea', 'stroke-width': 2.5 }, host);
+  // Tiny light rays passing straight through holes!
+  const lightRays = ['#f59e0b', '#22c55e', '#0ea5e9'].map((col, idx) =>
+    el('path', { fill: 'none', stroke: col, 'stroke-width': 2.5, 'stroke-linecap': 'round', opacity: 0.9 }, host)
+  );
+  return { mwIn, mwOut, bounceDot, lightRays };
+})();
+
+// 7. Food Picker Buttons (3x2 grid)
+const foodBtnEls = {};
+(() => {
+  const host = $('foodButtons');
+  FOOD_ORDER.forEach((id, i) => {
+    const F = FOODS[id];
+    const col = i % 3, row = Math.floor(i / 3);
+    const x = 1072 + col * 162, y = 118 + row * 60;
+    const g = el('g', { class: 'btn', 'data-food': id }, host);
+    const rect = el('rect', { x, y, width: 152, height: 52, rx: 13, fill: '#f8fafc', stroke: '#cbd5e1', 'stroke-width': 2.5 }, g);
+    const t1 = txt({ x: x + 76, y: y + 24, 'text-anchor': 'middle', 'font-size': 18, fill: '#1e293b' }, `${F.emo} ${F.name}`, g);
+    const t2 = txt({ x: x + 76, y: y + 43, 'text-anchor': 'middle', 'font-size': 12.5, 'font-weight': 'normal', fill: '#64748b' }, F.sub, g);
+    g.addEventListener('click', () => selectFood(id));
+    foodBtnEls[id] = { g, rect, t1, t2 };
+  });
+})();
+
+// =========================================================================
+// FOOD DRAWING IN CAVITY
+// =========================================================================
+let foodParts = {};
+let fxItems = [];
+
+function buildFoodCavity() {
+  const host = $('foodLayer');
+  const fx = $('cavityFx');
+  host.innerHTML = '';
+  fx.innerHTML = '';
+  fxItems = [];
+  foodParts = {};
+
+  const id = S.foodId;
+  if (id === 'soup') {
+    const g = el('g', { transform: 'translate(362 292)' }, host);
+    // Ceramic bowl
+    el('path', { d: 'M -86 -12 Q -78 32 0 32 Q 78 32 86 -12 Z', fill: '#f8fafc', stroke: '#334155', 'stroke-width': 3 }, g);
+    el('path', { d: 'M -50 28 H 50 L 42 36 H -42 Z', fill: '#cbd5e1', stroke: '#334155', 'stroke-width': 2 }, g);
+    // Soup surface
+    const liq = el('ellipse', { cx: 0, cy: -12, rx: 80, ry: 16, fill: '#fb923c', stroke: '#c2410c', 'stroke-width': 2.5 }, g);
+    // Cute veggies floating
+    [[-34, -12, '#22c55e'], [24, -8, '#facc15'], [-4, -16, '#ef4444'], [46, -14, '#22c55e']].forEach(([x, y, c]) =>
+      el('circle', { cx: x, cy: y, r: 5, fill: c, stroke: '#7c2d12', 'stroke-width': 1 }, g));
+    foodParts.soupGlow = el('ellipse', { cx: 0, cy: -12, rx: 74, ry: 12, fill: '#ef4444', opacity: 0 }, g);
+    foodParts.root = g;
+    foodParts.liq = liq;
+  } else if (id === 'popcorn') {
+    const g = el('g', { transform: 'translate(362 296)' }, host);
+    const bag = el('path', {
+      d: 'M -92 24 L -78 -26 Q 0 -36 78 -26 L 92 24 Q 0 32 -92 24 Z',
+      fill: '#fef3c7', stroke: '#b45309', 'stroke-width': 3, 'stroke-linejoin': 'round'
+    }, g);
+    const label = txt({ x: 0, y: 6, 'text-anchor': 'middle', 'font-size': 18, fill: '#dc2626' }, '🍿 POPCORN', g);
+    foodParts.bag = bag;
+    foodParts.label = label;
+    foodParts.root = g;
+    // Fluffy popped clouds that appear above bag as kernels pop
+    foodParts.pops = [];
+    for (let i = 0; i < 12; i++) {
+      const p = el('g', { opacity: 0, transform: `translate(${-68 + (i % 6) * 27} ${-34 - Math.floor(i / 6) * 20})` }, g);
+      el('circle', { cx: -5, cy: 0, r: 8, fill: '#fefce8', stroke: '#eab308', 'stroke-width': 1.5 }, p);
+      el('circle', { cx: 5, cy: -2, r: 7, fill: '#fef9c3', stroke: '#eab308', 'stroke-width': 1.5 }, p);
+      el('circle', { cx: 0, cy: -6, r: 7, fill: '#fff', stroke: '#eab308', 'stroke-width': 1.5 }, p);
+      foodParts.pops.push(p);
+    }
+  } else if (id === 'pizza') {
+    const g = el('g', { transform: 'translate(362 308)' }, host);
+    // Paper plate
+    el('ellipse', { cx: 0, cy: 10, rx: 112, ry: 16, fill: '#fff', stroke: '#94a3b8', 'stroke-width': 2.5 }, g);
+    // Wide pizza slice lying on plate
+    el('path', { d: 'M -94 6 Q -94 -22 -70 -24 L 88 2 Q 94 12 64 16 L -84 16 Z', fill: '#f59e0b', stroke: '#92400e', 'stroke-width': 2.5 }, g);
+    // Cheese layer (3 heat tint sections so you can see uneven melting!)
+    foodParts.cheese = [-54, 0, 52].map(x =>
+      el('ellipse', { cx: x, cy: -2, rx: 28, ry: 9, fill: '#fde047', opacity: 0.9 }, g)
+    );
+    // Pepperoni
+    [[-56, -4], [-14, -6], [24, 0], [54, 4]].forEach(([x, y]) =>
+      el('ellipse', { cx: x, cy: y, rx: 11, ry: 5, fill: '#dc2626', stroke: '#7f1d1d', 'stroke-width': 1.5 }, g));
+    // Crust
+    el('path', { d: 'M -96 4 Q -98 -24 -72 -26 Q -62 -26 -62 -14 L -68 14 Q -86 16 -96 4 Z', fill: '#d97706', stroke: '#78350f', 'stroke-width': 2.5 }, g);
+    foodParts.root = g;
+  } else if (id === 'ice') {
+    const g = el('g', { transform: 'translate(362 312)' }, host);
+    // Plate
+    el('ellipse', { cx: 0, cy: 10, rx: 102, ry: 14, fill: '#f8fafc', stroke: '#94a3b8', 'stroke-width': 2.5 }, g);
+    // Melt puddle
+    foodParts.puddle = el('ellipse', { cx: 0, cy: 8, rx: 20, ry: 5, fill: '#60a5fa', opacity: 0 }, g);
+    // Ice cube
+    const cube = el('g', {}, g);
+    el('rect', { x: -38, y: -64, width: 76, height: 70, rx: 10, fill: '#bae6fd', stroke: '#0284c7', 'stroke-width': 3, opacity: 0.9 }, cube);
+    el('path', { d: 'M -26 -52 L -6 -52 L -26 -30 Z', fill: '#fff', opacity: 0.7 }, cube);
+    el('line', { x1: 14, y1: -48, x2: 24, y2: -24, stroke: '#fff', 'stroke-width': 3, 'stroke-linecap': 'round', opacity: 0.7 }, cube);
+    foodParts.cube = cube;
+    foodParts.root = g;
+  } else if (id === 'plate') {
+    const g = el('g', { transform: 'translate(362 310)' }, host);
+    el('ellipse', { cx: 0, cy: 8, rx: 108, ry: 18, fill: '#ffffff', stroke: '#64748b', 'stroke-width': 3 }, g);
+    el('ellipse', { cx: 0, cy: 6, rx: 72, ry: 10, fill: '#f8fafc', stroke: '#cbd5e1', 'stroke-width': 2 }, g);
+    txt({ x: 0, y: -16, 'text-anchor': 'middle', 'font-size': 13, fill: '#059669' }, 'cool & dry!', g);
+    foodParts.root = g;
+  } else if (id === 'fork') {
+    const g = el('g', { transform: 'translate(362 308)' }, host);
+    el('ellipse', { cx: 0, cy: 12, rx: 108, ry: 14, fill: '#f8fafc', stroke: '#94a3b8', 'stroke-width': 2 }, g);
+    // Shiny metal fork
+    el('rect', { x: -84, y: -4, width: 100, height: 10, rx: 5, fill: '#cbd5e1', stroke: '#334155', 'stroke-width': 2 }, g);
+    el('path', { d: 'M 14 -6 Q 30 -16 44 -16 H 78 M 14 -1 H 80 M 14 4 H 80 M 14 8 Q 30 16 44 16 H 78',
+      fill: 'none', stroke: '#94a3b8', 'stroke-width': 4.5, 'stroke-linecap': 'round' }, g);
+    // Warning sign & sparks container
+    foodParts.sparkG = el('g', { filter: 'url(#glowSoft)' }, g);
+    foodParts.warnTag = el('g', { transform: 'translate(0 -58)' }, g);
+    el('rect', { x: -102, y: -18, width: 204, height: 32, rx: 10, fill: '#fef2f2', stroke: '#dc2626', 'stroke-width': 2.5 }, foodParts.warnTag);
+    txt({ x: 0, y: 4, 'text-anchor': 'middle', 'font-size': 14, fill: '#dc2626' }, '⚡ SPARKS! No metal!', foodParts.warnTag);
+    foodParts.root = g;
+  }
+}
+
+// =========================================================================
+// MICROSCOPIC ZOOM PARTICLES (Sub-Panel 1: x=48..768, y=514..784)
+// =========================================================================
+let mols = [];
+let fieldArrows = [];
+let fieldWavePath = null;
+let iceBondsG = null;
+let bumpFlashes = [];
+
+function buildMolField() {
+  const host = $('molFieldLayer');
+  host.innerHTML = '';
+  fieldArrows = [];
+  fieldWavePath = el('path', { fill: 'none', stroke: '#a855f7', 'stroke-width': 4, opacity: 0.45 }, host);
+  for (let i = 0; i < 9; i++) {
+    const x = 92 + i * 79;
+    const g = el('g', {}, host);
+    const line = el('line', { x1: x, y1: 642, x2: x, y2: 642, stroke: '#9333ea', 'stroke-width': 3, 'stroke-linecap': 'round', opacity: 0.35 }, g);
+    const head = el('polygon', { fill: '#9333ea', opacity: 0.45 }, g);
+    fieldArrows.push({ x, line, head });
+  }
+}
+
+function makeWaterNode(parent) {
+  const g = el('g', {}, parent);
+  // Hydrogen + side (right)
+  el('circle', { cx: 12, cy: -10, r: 8, fill: '#60a5fa', stroke: '#1d4ed8', 'stroke-width': 1.8 }, g);
+  el('circle', { cx: 12, cy: 10, r: 8, fill: '#60a5fa', stroke: '#1d4ed8', 'stroke-width': 1.8 }, g);
+  // Oxygen - side (left)
+  el('circle', { cx: -4, cy: 0, r: 14, fill: '#ef4444', stroke: '#991b1b', 'stroke-width': 2 }, g);
+  txt({ x: -4, y: 5, 'text-anchor': 'middle', 'font-size': 15, fill: '#fff' }, '−', g);
+  txt({ x: 12, y: -6, 'text-anchor': 'middle', 'font-size': 11, fill: '#fff' }, '+', g);
+  txt({ x: 12, y: 14, 'text-anchor': 'middle', 'font-size': 11, fill: '#fff' }, '+', g);
+  return g;
+}
+
+function buildMolecules() {
+  const host = $('molParticles');
+  const bumps = $('molBumps');
+  host.innerHTML = '';
+  bumps.innerHTML = '';
+  bumpFlashes = [];
+  mols = [];
+
+  const F = FOODS[S.foodId];
+  iceBondsG = el('g', {}, host);
+
+  if (F.mode === 'water') {
+    const cols = 6, rows = 3;
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        const hx = 108 + c * 116 + (r % 2) * 26;
+        const hy = 562 + r * 74;
+        const node = makeWaterNode(host);
+        mols.push({
+          kind: 'water', hx, hy, x: hx, y: hy,
+          ang: Math.random() * Math.PI * 2,
+          jitterPh: Math.random() * 6.28,
+          node
+        });
+      }
+    }
+  } else if (F.mode === 'popcorn') {
+    // 6 hard corn kernels, each holding 2 trapped water molecules!
+    for (let i = 0; i < 6; i++) {
+      const col = i % 3, row = Math.floor(i / 3);
+      const hx = 174 + col * 230;
+      const hy = 584 + row * 124;
+      const g = el('g', { transform: `translate(${hx} ${hy})` }, host);
+      // Popped fluffy cloud (hidden until popped)
+      const fluff = el('g', { opacity: 0 }, g);
+      el('circle', { cx: -28, cy: -8, r: 24, fill: '#fefce8', stroke: '#eab308', 'stroke-width': 2.5 }, fluff);
+      el('circle', { cx: 26, cy: -6, r: 24, fill: '#fef9c3', stroke: '#eab308', 'stroke-width': 2.5 }, fluff);
+      el('circle', { cx: 0, cy: -22, r: 26, fill: '#fff', stroke: '#eab308', 'stroke-width': 2.5 }, fluff);
+      el('circle', { cx: 0, cy: 12, r: 22, fill: '#fefce8', stroke: '#eab308', 'stroke-width': 2.5 }, fluff);
+      txt({ x: 0, y: 4, 'text-anchor': 'middle', 'font-size': 16, fill: '#ca8a04' }, 'POP!', fluff);
+
+      // Hard kernel shell
+      const shell = el('g', {}, g);
+      el('ellipse', { cx: 0, cy: 0, rx: 58, ry: 40, fill: '#facc15', stroke: '#b45309', 'stroke-width': 3.5 }, shell);
+      el('ellipse', { cx: 0, cy: 0, rx: 44, ry: 28, fill: '#fef3c7', stroke: '#d97706', 'stroke-width': 2 }, shell);
+      const w1 = makeWaterNode(shell);
+      const w2 = makeWaterNode(shell);
+      w1.setAttribute('transform', 'translate(-18 0) scale(0.75)');
+      w2.setAttribute('transform', 'translate(18 0) scale(0.75)');
+      mols.push({
+        kind: 'kernel', hx, hy, g, shell, fluff, w1, w2,
+        popAt: 96 + i * 3.5, popped: false, ang: i, jitterPh: i * 1.4
+      });
+    }
+  } else if (F.mode === 'ice') {
+    // Locked hexagonal-ish crystal lattice of water molecules
+    const cols = 6, rows = 3;
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        const hx = 114 + c * 112 + (r % 2) * 32;
+        const hy = 562 + r * 74;
+        const node = makeWaterNode(host);
+        // Outer molecules melt slightly earlier than center molecules!
+        const distCenter = Math.hypot(c - 2.5, r - 1);
+        mols.push({
+          kind: 'ice', hx, hy, x: hx, y: hy,
+          ang: (r % 2 === 0 ? 0.3 : -0.3),
+          meltAt: clamp(18 - distCenter * 6, 0, 18),
+          melted: false,
+          jitterPh: Math.random() * 6.28,
+          node
+        });
+      }
+    }
+    // Draw icy hydrogen bonds between neighbors
+    for (let i = 0; i < mols.length; i++) {
+      for (let j = i + 1; j < mols.length; j++) {
+        const d = Math.hypot(mols[i].hx - mols[j].hx, mols[i].hy - mols[j].hy);
+        if (d < 130) {
+          const line = el('line', {
+            x1: mols[i].hx, y1: mols[i].hy, x2: mols[j].hx, y2: mols[j].hy,
+            stroke: '#38bdf8', 'stroke-width': 3, 'stroke-dasharray': '5 5', opacity: 0.75
+          }, iceBondsG);
+          mols[i].bonds = mols[i].bonds || [];
+          mols[i].bonds.push({ line, other: mols[j] });
+        }
+      }
+    }
+  } else if (F.mode === 'dry') {
+    // Rigid ceramic silicon-oxygen grid (no free dipole!)
+    const cols = 6, rows = 3;
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        const hx = 116 + c * 114;
+        const hy = 564 + r * 74;
+        if (c < cols - 1) el('line', { x1: hx, y1: hy, x2: hx + 114, y2: hy, stroke: '#94a3b8', 'stroke-width': 4 }, iceBondsG);
+        if (r < rows - 1) el('line', { x1: hx, y1: hy, x2: hx, y2: hy + 74, stroke: '#94a3b8', 'stroke-width': 4 }, iceBondsG);
+        const g = el('g', { transform: `translate(${hx} ${hy})` }, host);
+        el('circle', { r: 15, fill: '#cbd5e1', stroke: '#475569', 'stroke-width': 2.5 }, g);
+        txt({ x: 0, y: 5, 'text-anchor': 'middle', 'font-size': 11, fill: '#334155' }, 'dry', g);
+        mols.push({ kind: 'dry', hx, hy, node: g, jitterPh: r + c });
+      }
+    }
+  } else if (F.mode === 'metal') {
+    // Metal fork tip shape on left + air gap + spark target on right!
+    el('path', { d: 'M 48 560 L 420 560 Q 490 560 518 638 Q 490 716 420 716 L 48 716 Z',
+      fill: '#cbd5e1', stroke: '#475569', 'stroke-width': 3.5 }, iceBondsG);
+    txt({ x: 240, y: 742, 'text-anchor': 'middle', 'font-size': 13, fill: '#475569' }, 'SHARP METAL FORK TINE', iceBondsG);
+    // Neighboring tine
+    el('path', { d: 'M 768 576 L 642 596 Q 608 638 642 680 L 768 700 Z',
+      fill: '#cbd5e1', stroke: '#475569', 'stroke-width': 3.5 }, iceBondsG);
+    txt({ x: 696, y: 742, 'text-anchor': 'middle', 'font-size': 13, fill: '#475569' }, 'NEXT TINE', iceBondsG);
+
+    // Fixed metal ions
+    for (let r = 0; r < 2; r++) {
+      for (let c = 0; c < 5; c++) {
+        const x = 96 + c * 82, y = 602 + r * 72;
+        el('circle', { cx: x, cy: y, r: 14, fill: '#94a3b8', stroke: '#334155', 'stroke-width': 2 }, iceBondsG);
+        txt({ x, y: y + 5, 'text-anchor': 'middle', 'font-size': 14, fill: '#fff' }, '+', iceBondsG);
+      }
+    }
+    // Free-roaming yellow electrons that surge to the sharp tip!
+    for (let i = 0; i < 16; i++) {
+      const g = el('g', {}, host);
+      el('circle', { r: 8.5, fill: '#facc15', stroke: '#b45309', 'stroke-width': 2 }, g);
+      txt({ x: 0, y: 4, 'text-anchor': 'middle', 'font-size': 13, fill: '#713f12' }, '−', g);
+      mols.push({
+        kind: 'electron',
+        hx: 110 + (i % 8) * 46,
+        hy: 586 + Math.floor(i / 8) * 96,
+        ph: i * 0.7,
+        node: g
+      });
+    }
+    // Big arc path between tines
+    foodParts.zoomArc = el('path', { fill: 'none', stroke: '#fef08a', 'stroke-width': 5, 'stroke-linecap': 'round', filter: 'url(#glowSoft)', opacity: 0 }, host);
+    foodParts.zoomArcCore = el('path', { fill: 'none', stroke: '#38bdf8', 'stroke-width': 9, 'stroke-linecap': 'round', opacity: 0 }, host);
+  }
+}
+
+function spawnBump(x, y) {
+  if (bumpFlashes.length > 18) return;
+  const g = el('g', { transform: `translate(${f1(x)} ${f1(y)})` }, $('molBumps'));
+  el('circle', { r: 7, fill: '#fef08a', stroke: '#f59e0b', 'stroke-width': 2 }, g);
+  bumpFlashes.push({ node: g, life: 0, max: 0.32 });
+}
+
+function spawnSteam(x, y) {
+  if (fxItems.length > 16) return;
+  const c = el('circle', { cx: f1(x), cy: f1(y), r: 6, fill: '#fff', stroke: '#cbd5e1', 'stroke-width': 1.5, opacity: 0.75 }, $('cavityFx'));
+  fxItems.push({ node: c, x, y, vx: (Math.random() - 0.5) * 18, vy: -32 - Math.random() * 24, r: 6, life: 0, max: 1.3 });
+}
+
+// =========================================================================
+// UI STATE UPDATES
+// =========================================================================
+function setBanner(emo, html, border = '#8b5cf6') {
+  $('msgEmo').textContent = emo;
+  $('msgText').innerHTML = html;
+  $('msg').style.borderColor = border;
+}
+
+function showPartTip(emo, html, border = '#6366f1') {
+  S.customBanner = { emo, html, border, timer: 6.5 };
+  setBanner(emo, html, border);
+  AudioEng.playBeep(740, 0.06);
+}
+
+function updateFoodButtons() {
+  const F = FOODS[S.foodId];
+  FOOD_ORDER.forEach(id => {
+    const b = foodBtnEls[id];
+    const on = id === S.foodId;
+    b.rect.setAttribute('fill', on ? FOODS[id].color : '#f8fafc');
+    b.rect.setAttribute('stroke', on ? '#1e293b' : '#cbd5e1');
+    b.rect.setAttribute('stroke-width', on ? 3 : 2);
+    b.t1.setAttribute('fill', on ? '#fff' : '#1e293b');
+    b.t2.setAttribute('fill', on ? '#fef9c3' : '#64748b');
+  });
+  $('foodBadge').textContent = F.badge;
+  $('molPill').textContent = F.pill;
+  $('molPill').setAttribute('fill', F.pillText);
+  $('molPillBox').setAttribute('fill', F.pillBg);
+  $('molPillBox').setAttribute('stroke', F.pillStroke);
+  $('molCaption').textContent = F.caption;
+}
+
+function updatePills() {
+  // Turntable pill
+  $('ttRect').setAttribute('fill', S.turntableOn ? '#0ea5e9' : '#f59e0b');
+  $('ttRect').setAttribute('stroke', S.turntableOn ? '#0369a1' : '#b45309');
+  $('ttText').textContent = S.turntableOn ? '🔄 Turntable: ON' : '⏸ Turntable: OFF';
+
+  // Door pill
+  $('doorRect').setAttribute('fill', S.doorOpen ? '#ef4444' : '#e2e8f0');
+  $('doorRect').setAttribute('stroke', S.doorOpen ? '#991b1b' : '#94a3b8');
+  $('doorText').setAttribute('fill', S.doorOpen ? '#fff' : '#334155');
+  $('doorText').textContent = S.doorOpen ? '🚪 Door: OPEN' : '🚪 Door: SHUT';
+
+  // Slow-mo pill
+  $('slowRect').setAttribute('fill', S.slowMo ? '#8b5cf6' : '#e2e8f0');
+  $('slowRect').setAttribute('stroke', S.slowMo ? '#5b21b6' : '#94a3b8');
+  $('slowText').setAttribute('fill', S.slowMo ? '#fff' : '#334155');
+  $('slowText').textContent = S.slowMo ? '🐢 Slow-mo: ON' : '🐢 Slow-mo';
+
+  // Sound button
+  $('soundRect').setAttribute('fill', S.soundOn ? '#8b5cf6' : '#e2e8f0');
+  $('soundRect').setAttribute('stroke', S.soundOn ? '#5b21b6' : '#94a3b8');
+  $('soundText').setAttribute('fill', S.soundOn ? '#fff' : '#334155');
+  $('soundText').textContent = S.soundOn ? '🔊 SOUND: ON' : '🔇 SOUND: OFF';
+
+  // Cook/Pause button
+  if (S.doorOpen) {
+    $('cookRect').setAttribute('fill', '#cbd5e1');
+    $('cookRect').setAttribute('stroke', '#94a3b8');
+    $('cookText').setAttribute('fill', '#475569');
+    $('cookText').textContent = '🔒 SHUT DOOR';
+  } else if (S.running) {
+    $('cookRect').setAttribute('fill', '#22c55e');
+    $('cookRect').setAttribute('stroke', '#15803d');
+    $('cookText').setAttribute('fill', '#fff');
+    $('cookText').textContent = '⏸ PAUSE';
+  } else {
+    $('cookRect').setAttribute('fill', '#f97316');
+    $('cookRect').setAttribute('stroke', '#c2410c');
+    $('cookText').setAttribute('fill', '#fff');
+    $('cookText').textContent = '▶ START';
+  }
+
+  // Open door graphics & safety latch
+  $('openDoorGroup').setAttribute('display', S.doorOpen ? 'inline' : 'none');
+  $('doorMeshOverlay').setAttribute('opacity', S.doorOpen ? '0' : '1');
+  $('latchBox').setAttribute('fill', S.doorOpen ? '#ef4444' : '#22c55e');
+  $('latchBox').setAttribute('stroke', S.doorOpen ? '#7f1d1d' : '#14532d');
+  $('cavityBg').setAttribute('fill', isEmitting() ? 'url(#cavityLit)' : 'url(#cavityDark)');
+  $('lightCone').setAttribute('opacity', isEmitting() ? '0.24' : '0');
+}
+
+function updatePowerUI() {
+  const w = getWatts();
+  const label = w <= 300 ? 'Defrost' : w <= 550 ? 'Warm' : w <= 850 ? 'High' : 'Full power!';
+  $('pwrReadout').textContent = `${w} W · ${label}`;
+  const fillW = Math.max(16, S.powerNorm * 432);
+  $('pwrFill').setAttribute('width', f1(fillW));
+  $('pwrKnob').setAttribute('transform', `translate(${f1(1094 + S.powerNorm * 432)} 300)`);
+  $('statPower').textContent = `⚡ Power: ${w} W (${label})`;
+  AudioEng.updateHum();
+}
+
+function resetFoodTemp() {
+  const F = FOODS[S.foodId];
+  S.zones = [F.startTemp, F.startTemp, F.startTemp, F.startTemp, F.startTemp];
+  S.poppedCount = 0;
+  S.dingPlayed = false;
+  S.customBanner = null;
+  buildFoodCavity();
+  buildMolecules();
+  setBanner(F.emo, F.desc, F.color);
+}
+
+function selectFood(id) {
+  S.foodId = id;
+  updateFoodButtons();
+  resetFoodTemp();
+  AudioEng.playBeep(660 + FOOD_ORDER.indexOf(id) * 60, 0.06);
+}
+
+// =========================================================================
+// MAIN SIMULATION LOOP
+// =========================================================================
+function step(rawDt) {
+  const dt = S.slowMo ? rawDt * 0.28 : rawDt;
+  S.clock += dt;
+
+  const F = FOODS[S.foodId];
+  const emitting = isEmitting();
+  const pwr = 0.2 + S.powerNorm * 0.8; // 0.2..1.0
+
+  // Banner auto-restore after clicking a machine part
+  if (S.customBanner) {
+    S.customBanner.timer -= rawDt;
+    if (S.customBanner.timer <= 0) {
+      S.customBanner = null;
+      setBanner(F.emo, F.desc, F.color);
+    }
+  }
+
+  // 1. Wave phase, turntable, fan, magnetron spin
+  if (emitting) {
+    S.wavePhase += dt * (4.8 + S.powerNorm * 4.2);
+    S.magAngle += dt * (260 + S.powerNorm * 340);
+    S.fanAngle += dt * 420;
+    if (S.turntableOn) S.ttAngle += dt * 1.15;
+  }
+
+  // 2. Heating physics across the 5 spatial zones!
+  // Standing wave intensity: HOT at zones 0, 2, 4; COLD at zones 1, 3
+  const waveProfile = [1.35, 0.18, 1.45, 0.18, 1.35];
+  if (emitting) {
+    for (let i = 0; i < 5; i++) {
+      let eff = S.turntableOn ? 0.92 : waveProfile[i];
+      // Ice warms VERY slowly while below 0°C because molecules are locked in a crystal!
+      let rate = F.heatRate * pwr * eff;
+      if (F.mode === 'ice' && S.zones[i] < 0) rate *= 0.14;
+      S.zones[i] = Math.min(F.maxTemp, S.zones[i] + rate * dt);
+    }
+    // Turntable blends heat smoothly across zones; even when off, slight conduction happens
+    const avg = avgTemp();
+    const blend = S.turntableOn ? 2.4 : 0.08;
+    for (let i = 0; i < 5; i++) {
+      S.zones[i] += (avg - S.zones[i]) * Math.min(1, blend * dt);
+    }
+  } else {
+    // Gentle cooling toward room temp when paused/open
+    const ambient = F.mode === 'ice' ? -2 : 22;
+    for (let i = 0; i < 5; i++) {
+      S.zones[i] += (ambient - S.zones[i]) * Math.min(1, 0.08 * rawDt);
+    }
+  }
+
+  const T = avgTemp();
+  const spread = Math.max(...S.zones) - Math.min(...S.zones);
+
+  // Trigger cheerful DING when soup/pizza reaches hot or all popcorn pops
+  if (emitting && !S.dingPlayed) {
+    if ((S.foodId === 'soup' && T >= 92) || (S.foodId === 'pizza' && T >= 78)) {
+      S.dingPlayed = true;
+      AudioEng.playDing();
+    }
+  }
+
+  // 3. Draw Machinery Bay Animations
+  $('magRing').setAttribute('transform', `translate(812 195) rotate(${f1(S.magAngle % 360)})`);
+  $('magGlow').setAttribute('opacity', emitting ? f1(0.45 + pwr * 0.55 * (0.85 + 0.15 * Math.sin(S.clock * 18))) : '0.12');
+  $('fanBlades').setAttribute('transform', `translate(934 202) rotate(${f1(S.fanAngle % 360)})`);
+
+  wgPulses.forEach((p, i) => {
+    if (!emitting) { p.setAttribute('opacity', '0'); return; }
+    const f = ((S.clock * (1.2 + pwr * 0.8)) + i / wgPulses.length) % 1;
+    const x = 754 - f * 104;
+    p.setAttribute('transform', `translate(${f1(x)} 194)`);
+    p.setAttribute('opacity', f1(Math.sin(f * Math.PI) * (0.4 + pwr * 0.6)));
+  });
+
+  pwrDots.forEach((d, i) => {
+    if (!emitting) { d.setAttribute('opacity', '0'); return; }
+    const f = ((S.clock * 1.4) + i / pwrDots.length) % 1;
+    const x = 976 - f * 106;
+    d.setAttribute('cx', f1(x)); d.setAttribute('cy', '306');
+    d.setAttribute('opacity', '0.9');
+  });
+
+  // 4. Draw Turntable Ticks & Standing Wave inside Cavity
+  ttTicks.forEach((c, i) => {
+    const a = S.ttAngle + (i / ttTicks.length) * Math.PI * 2;
+    c.setAttribute('cx', f1(362 + Math.cos(a) * 130));
+    c.setAttribute('cy', f1(326 + Math.sin(a) * 8));
+  });
+
+  // Standing wave hot/cold bands visible when emitting & turntable OFF
+  standBandEls.forEach(g => {
+    const targetOp = (emitting && !S.turntableOn) ? 0.95 : (emitting ? 0.14 : 0);
+    g.setAttribute('opacity', f1(targetOp));
+  });
+
+  // Standing wave curves inside cavity
+  cavityWavePaths.forEach((path, idx) => {
+    if (!emitting) { path.setAttribute('d', ''); return; }
+    const amp = (12 + pwr * 18) * (idx === 0 ? 1 : 0.72);
+    const yBase = idx === 0 ? 226 : idx === 1 ? 190 : 264;
+    const osc = Math.sin(S.wavePhase + idx * 0.9);
+    let d = '';
+    for (let x = 86; x <= 644; x += 12) {
+      // Standing wave with peaks at x=166, 362, 558 and nodes at x=264, 460
+      const k = ((x - 166) / 196) * Math.PI;
+      const y = yBase + Math.cos(k) * amp * osc;
+      d += `${x === 86 ? 'M' : 'L'}${x} ${f1(y)} `;
+    }
+    path.setAttribute('d', d);
+    path.setAttribute('opacity', f1((0.35 + pwr * 0.55) * (idx === 0 ? 1 : 0.65)));
+  });
+
+  // 5. Update Food Visuals inside Cavity
+  if (S.foodId === 'soup' && foodParts.soupGlow) {
+    const hotness = clamp((T - 35) / 65, 0, 1);
+    foodParts.soupGlow.setAttribute('opacity', f1(hotness * 0.45));
+    if (T > 55 && Math.random() < dt * (2 + hotness * 6)) {
+      spawnSteam(320 + Math.random() * 84, 272);
+    }
+  } else if (S.foodId === 'popcorn' && foodParts.bag) {
+    const puff = clamp((T - 55) / 65, 0, 1);
+    const sy = 1 + puff * 0.65;
+    foodParts.bag.setAttribute('transform', `scale(1 ${f1(sy)})`);
+    foodParts.pops.forEach((p, i) => {
+      const showPop = S.poppedCount >= Math.ceil((i + 1) / 2);
+      p.setAttribute('opacity', showPop ? '1' : '0');
+    });
+    if (T > 85 && Math.random() < dt * 3) spawnSteam(330 + Math.random() * 64, 250);
+  } else if (S.foodId === 'pizza' && foodParts.cheese) {
+    const zIdx = [0, 2, 4];
+    foodParts.cheese.forEach((c, i) => {
+      const zt = S.zones[zIdx[i]];
+      c.setAttribute('fill', zt > 60 ? '#fb923c' : zt > 38 ? '#facc15' : '#fef08a');
+    });
+    if (T > 58 && Math.random() < dt * 3.5) spawnSteam(310 + Math.random() * 100, 290);
+  } else if (S.foodId === 'ice' && foodParts.cube) {
+    const melt = clamp((T - 0) / 55, 0, 1);
+    const s = 1 - melt * 0.62;
+    foodParts.cube.setAttribute('transform', `translate(0 ${f1(melt * 6)}) scale(${f1(s)})`);
+    foodParts.puddle.setAttribute('opacity', f1(clamp(melt * 1.4, 0, 0.85)));
+    foodParts.puddle.setAttribute('rx', f1(22 + melt * 62));
+    foodParts.puddle.setAttribute('ry', f1(5 + melt * 6));
+  } else if (S.foodId === 'fork' && foodParts.sparkG) {
+    foodParts.warnTag.setAttribute('opacity', emitting ? '1' : '0.35');
+    S.sparkTimer -= rawDt;
+    if (emitting && S.sparkTimer <= 0) {
+      S.sparkTimer = (S.slowMo ? 0.55 : 0.22) + Math.random() * 0.25;
+      foodParts.sparkG.innerHTML = '';
+      const y1 = -14 + Math.random() * 24;
+      const y2 = y1 + (Math.random() - 0.5) * 18;
+      const mx = 74 + Math.random() * 14;
+      el('path', {
+        d: `M 76 ${f1(y1)} L ${f1(mx)} ${f1((y1 + y2) / 2 - 6)} L 86 ${f1(y2)}`,
+        fill: 'none', stroke: '#fef08a', 'stroke-width': 3.5, 'stroke-linecap': 'round'
+      }, foodParts.sparkG);
+      el('circle', { cx: 80, cy: f1(y1), r: 6, fill: '#38bdf8', opacity: 0.85 }, foodParts.sparkG);
+      AudioEng.playZap();
+    } else if (!emitting) {
+      foodParts.sparkG.innerHTML = '';
+    }
+  }
+
+  // Advance Cavity Steam FX
+  for (let i = fxItems.length - 1; i >= 0; i--) {
+    const p = fxItems[i];
+    p.life += rawDt;
+    if (p.life >= p.max) { p.node.remove(); fxItems.splice(i, 1); }
+    else {
+      const f = p.life / p.max;
+      p.x += p.vx * rawDt; p.y += p.vy * rawDt;
+      p.node.setAttribute('cx', f1(p.x)); p.node.setAttribute('cy', f1(p.y));
+      p.node.setAttribute('r', f1(p.r + f * 9));
+      p.node.setAttribute('opacity', f1((1 - f) * 0.65));
+    }
+  }
+
+  // 6. Update Sub-Panel 1: Microscopic Food Zoom
+  const warmOp = clamp((T - 26) / 80, 0, 1) * 0.28;
+  $('molWarmTint').setAttribute('opacity', f1(warmOp));
+
+  // Electric field wave + arrows
+  if (emitting) {
+    const amp = 46 + pwr * 48;
+    let d = '';
+    for (let x = 52; x <= 764; x += 14) {
+      const y = 642 - Math.sin((x - 52) * 0.018 - S.wavePhase) * amp;
+      d += `${x === 52 ? 'M' : 'L'}${x} ${f1(y)} `;
+    }
+    fieldWavePath.setAttribute('d', d);
+    fieldArrows.forEach(a => {
+      const val = Math.sin((a.x - 52) * 0.018 - S.wavePhase);
+      const len = val * (38 + pwr * 42);
+      const y2 = 642 - len;
+      a.line.setAttribute('y2', f1(y2));
+      a.line.setAttribute('opacity', f1(0.2 + Math.abs(val) * 0.4));
+      const dir = len >= 0 ? -1 : 1;
+      a.head.setAttribute('points', `${a.x},${f1(y2 + dir * 9)} ${a.x - 6},${f1(y2)} ${a.x + 6},${f1(y2)}`);
+      a.head.setAttribute('opacity', Math.abs(len) > 10 ? '0.45' : '0');
+    });
+  } else {
+    fieldWavePath.setAttribute('d', '');
+    fieldArrows.forEach(a => { a.line.setAttribute('opacity', '0'); a.head.setAttribute('opacity', '0'); });
+  }
+
+  // Update Particles inside Zoom
+  const thermalJitter = clamp((T + 15) / 115, 0.05, 1) * 9;
+  if (F.mode === 'water') {
+    mols.forEach(m => {
+      const field = emitting ? Math.sin((m.hx - 52) * 0.018 - S.wavePhase) : 0;
+      const targetAng = emitting ? (field >= 0 ? -Math.PI / 2 : Math.PI / 2) : m.ang;
+      // Rotate smoothly toward electric field direction!
+      let diff = targetAng - m.ang;
+      while (diff > Math.PI) diff -= Math.PI * 2;
+      while (diff < -Math.PI) diff += Math.PI * 2;
+      if (emitting) {
+        m.ang += diff * Math.min(1, dt * (6 + pwr * 10));
+        if (Math.abs(diff) > 1.3 && Math.random() < dt * 2.5 * pwr) {
+          spawnBump(m.x + (Math.random() - 0.5) * 24, m.y + (Math.random() - 0.5) * 24);
+        }
+      } else {
+        m.ang += Math.sin(S.clock + m.jitterPh) * 0.3 * dt;
+      }
+      const jx = Math.sin(S.clock * (6 + thermalJitter) + m.jitterPh) * thermalJitter;
+      const jy = Math.cos(S.clock * (7 + thermalJitter) + m.jitterPh * 1.3) * thermalJitter;
+      m.x = m.hx + jx; m.y = m.hy + jy;
+      m.node.setAttribute('transform', `translate(${f1(m.x)} ${f1(m.y)}) rotate(${f1(m.ang * 180 / Math.PI)})`);
+    });
+  } else if (F.mode === 'popcorn') {
+    let poppedNow = 0;
+    mols.forEach(m => {
+      if (!m.popped && T >= m.popAt) {
+        m.popped = true;
+        m.shell.setAttribute('opacity', '0');
+        m.fluff.setAttribute('opacity', '1');
+        spawnBump(m.hx, m.hy);
+        AudioEng.playPop();
+      }
+      if (m.popped) {
+        poppedNow++;
+        const bob = Math.sin(S.clock * 4 + m.jitterPh) * 2.5;
+        m.fluff.setAttribute('transform', `translate(0 ${f1(bob)})`);
+      } else {
+        const shake = emitting ? clamp((T - 40) / 60, 0, 1) * 5 : 0;
+        const sx = Math.sin(S.clock * 32 + m.jitterPh) * shake;
+        const sy = Math.cos(S.clock * 29 + m.jitterPh) * shake;
+        m.shell.setAttribute('transform', `translate(${f1(sx)} ${f1(sy)})`);
+        const field = emitting ? Math.sin((m.hx - 52) * 0.018 - S.wavePhase) : 0;
+        const ang = emitting ? (field >= 0 ? -85 : 85) : 0;
+        m.w1.setAttribute('transform', `translate(-18 0) rotate(${ang}) scale(0.75)`);
+        m.w2.setAttribute('transform', `translate(18 0) rotate(${ang}) scale(0.75)`);
+      }
+    });
+    if (poppedNow === mols.length && !S.dingPlayed) {
+      S.dingPlayed = true;
+      AudioEng.playDing();
+    }
+    S.poppedCount = poppedNow;
+  } else if (F.mode === 'ice') {
+    let meltedCount = 0;
+    mols.forEach(m => {
+      m.melted = T >= m.meltAt;
+      if (m.melted) meltedCount++;
+      const field = emitting ? Math.sin((m.hx - 52) * 0.018 - S.wavePhase) : 0;
+      if (m.melted) {
+        const targetAng = emitting ? (field >= 0 ? -Math.PI / 2 : Math.PI / 2) : m.ang;
+        let diff = targetAng - m.ang;
+        while (diff > Math.PI) diff -= Math.PI * 2;
+        while (diff < -Math.PI) diff += Math.PI * 2;
+        if (emitting) m.ang += diff * Math.min(1, dt * (6 + pwr * 9));
+        m.x = m.hx + Math.sin(S.clock * 9 + m.jitterPh) * 7;
+        m.y = m.hy + Math.cos(S.clock * 8 + m.jitterPh) * 7;
+      } else {
+        // Locked in crystal: tiny stubborn shiver only!
+        const twitch = emitting ? Math.sin(S.wavePhase) * 0.12 : 0;
+        m.x = m.hx + (emitting ? Math.sin(S.clock * 14 + m.jitterPh) * 1.4 : 0);
+        m.y = m.hy;
+        m.ang = 0.25 + twitch;
+      }
+      m.node.setAttribute('transform', `translate(${f1(m.x)} ${f1(m.y)}) rotate(${f1(m.ang * 180 / Math.PI)})`);
+      if (m.bonds) {
+        m.bonds.forEach(b => {
+          b.line.setAttribute('opacity', (!m.melted && !b.other.melted) ? '0.75' : '0.06');
+        });
+      }
+    });
+    $('molPill').textContent = meltedCount === 0 ? 'Locked in ice!' : meltedCount < mols.length ? 'Melting edges!' : 'All melted → fast!';
+  } else if (F.mode === 'dry') {
+    mols.forEach(m => {
+      const tiny = emitting ? Math.sin(S.clock * 8 + m.jitterPh) * 0.8 : 0;
+      m.node.setAttribute('transform', `translate(${f1(m.hx + tiny)} ${f1(m.hy)})`);
+    });
+  } else if (F.mode === 'metal') {
+    const push = emitting ? Math.sin(S.wavePhase * 1.4) : 0;
+    mols.forEach(m => {
+      // Electrons surge violently right toward the sharp fork tip!
+      const surge = emitting ? (55 + pwr * 85) * (0.5 + 0.5 * push) : 0;
+      const ex = clamp(m.hx + surge + Math.sin(S.clock * 18 + m.ph) * 8, 72, 496);
+      const ey = m.hy + Math.cos(S.clock * 15 + m.ph) * (emitting ? 14 : 3);
+      m.node.setAttribute('transform', `translate(${f1(ex)} ${f1(ey)})`);
+    });
+    const sparkOn = emitting && push > 0.55;
+    if (foodParts.zoomArc) {
+      if (sparkOn) {
+        const yA = 638 + (Math.random() - 0.5) * 14;
+        const yB = 638 + (Math.random() - 0.5) * 26;
+        const yC = 638 + (Math.random() - 0.5) * 16;
+        const d = `M 516 638 L 548 ${f1(yA)} L 580 ${f1(yB)} L 616 ${f1(yC)}`;
+        foodParts.zoomArc.setAttribute('d', d);
+        foodParts.zoomArcCore.setAttribute('d', d);
+        foodParts.zoomArc.setAttribute('opacity', '1');
+        foodParts.zoomArcCore.setAttribute('opacity', '0.55');
+      } else {
+        foodParts.zoomArc.setAttribute('opacity', '0');
+        foodParts.zoomArcCore.setAttribute('opacity', '0');
+      }
+    }
+  }
+
+  // Advance Friction Bump Flashes
+  for (let i = bumpFlashes.length - 1; i >= 0; i--) {
+    const b = bumpFlashes[i];
+    b.life += rawDt;
+    if (b.life >= b.max) { b.node.remove(); bumpFlashes.splice(i, 1); }
+    else {
+      const f = b.life / b.max;
+      b.node.setAttribute('opacity', f1(1 - f));
+    }
+  }
+
+  // 7. Update Sub-Panel 2: Door Mesh Animation
+  {
+    const ph = S.clock * 5.2;
+    // Big purple microwave traveling right, hitting mesh at x=972, bouncing back!
+    if (emitting) {
+      let dIn = '', dOut = '';
+      for (let x = 796; x <= 972; x += 8) {
+        const y1 = 628 + Math.sin((x - 796) * 0.055 - ph) * 26;
+        const y2 = 628 + Math.sin((x - 796) * 0.055 + ph) * 18;
+        dIn += `${x === 796 ? 'M' : 'L'}${x} ${f1(y1)} `;
+        dOut += `${x === 796 ? 'M' : 'L'}${x} ${f1(y2)} `;
+      }
+      meshWaveUI.mwIn.setAttribute('d', dIn);
+      meshWaveUI.mwOut.setAttribute('d', dOut);
+      meshWaveUI.bounceDot.setAttribute('opacity', f1(0.55 + 0.45 * Math.sin(ph * 2)));
+    } else {
+      meshWaveUI.mwIn.setAttribute('d', '');
+      meshWaveUI.mwOut.setAttribute('d', '');
+      meshWaveUI.bounceDot.setAttribute('opacity', '0');
+    }
+    // Tiny visible light waves ALWAYS pass straight through the 1 mm holes!
+    meshWaveUI.lightRays.forEach((ray, idx) => {
+      const yBase = 674 + idx * 16;
+      let d = '';
+      for (let x = 804; x <= 1106; x += 6) {
+        const y = yBase + Math.sin(x * 0.36 - S.clock * 12 + idx) * 2.6;
+        d += `${x === 804 ? 'M' : 'L'}${x} ${f1(y)} `;
+      }
+      ray.setAttribute('d', d);
+    });
+  }
+
+  // 8. Update Sub-Panel 3: Thermometer, Heat Map & Stat Counters
+  const yMerc = 706 - ((clamp(T, -15, 115) + 15) / 130) * 172;
+  $('thermoMerc').setAttribute('y', f1(yMerc));
+  $('thermoMerc').setAttribute('height', f1(726 - yMerc));
+  $('thermoVal').textContent = `${Math.round(T)} °C`.replace('-', '−');
+
+  heatZoneEls.forEach((r, i) => {
+    r.setAttribute('fill', tempColor(S.zones[i]));
+  });
+
+  if (S.foodId === 'plate') {
+    $('evenPill').textContent = '❄️ Stays cool & dry!';
+    $('evenPill').setAttribute('fill', '#0369a1');
+    $('evenPillBox').setAttribute('fill', '#e0f2fe');
+    $('evenPillBox').setAttribute('stroke', '#38bdf8');
+  } else if (S.foodId === 'fork') {
+    $('evenPill').textContent = '⚡ Reflecting waves!';
+    $('evenPill').setAttribute('fill', '#991b1b');
+    $('evenPillBox').setAttribute('fill', '#fef2f2');
+    $('evenPillBox').setAttribute('stroke', '#ef4444');
+  } else if (!S.turntableOn && spread > 12) {
+    $('evenPill').textContent = '⚠️ Hot & cold spots!';
+    $('evenPill').setAttribute('fill', '#9a3412');
+    $('evenPillBox').setAttribute('fill', '#ffedd5');
+    $('evenPillBox').setAttribute('stroke', '#f97316');
+  } else {
+    $('evenPill').textContent = '✅ Heating evenly!';
+    $('evenPill').setAttribute('fill', '#166534');
+    $('evenPillBox').setAttribute('fill', '#dcfce7');
+    $('evenPillBox').setAttribute('stroke', '#22c55e');
+  }
+
+  // Top-left stat pills
+  $('statWaves').textContent = emitting ? '🌊 Waves: 2.45 billion/sec' : '⏹ Waves: OFF';
+  $('statWaves').setAttribute('fill', emitting ? '#6d28d9' : '#64748b');
+  const tempLabel = S.foodId === 'popcorn' ? `🍿 Popped: ${S.poppedCount}/6 · ${Math.round(T)} °C` : `🌡️ Food temp: ${Math.round(T)} °C`.replace('-', '−');
+  $('statTemp').textContent = tempLabel;
+  $('statTempBox').setAttribute('stroke', T >= 65 ? '#ef4444' : T <= 2 ? '#38bdf8' : '#cbd5e1');
+}
+
+// =========================================================================
+// INPUT HANDLING (Pointer + Keyboard)
+// =========================================================================
+const svg = $('svg');
+function svgPt(e) {
+  const p = svg.createSVGPoint();
+  p.x = e.clientX; p.y = e.clientY;
+  return p.matrixTransform(svg.getScreenCTM().inverse());
+}
+
+// Power slider drag
+let draggingPwr = false;
+const pwrGroup = $('pwrSliderGroup');
+function setPowerFromEvent(e) {
+  const pt = svgPt(e);
+  S.powerNorm = clamp((pt.x - 1094) / 432, 0, 1);
+  updatePowerUI();
+}
+pwrGroup.addEventListener('pointerdown', e => {
+  draggingPwr = true;
+  pwrGroup.setPointerCapture(e.pointerId);
+  setPowerFromEvent(e);
+  e.preventDefault();
+});
+pwrGroup.addEventListener('pointermove', e => { if (draggingPwr) setPowerFromEvent(e); });
+const stopPwrDrag = () => { draggingPwr = false; };
+pwrGroup.addEventListener('pointerup', stopPwrDrag);
+pwrGroup.addEventListener('pointercancel', stopPwrDrag);
+
+// Header pills & main buttons
+$('turntableBtn').addEventListener('click', () => {
+  S.turntableOn = !S.turntableOn;
+  updatePills();
+  showPartTip('🔄',
+    S.turntableOn
+      ? '<b>TURNTABLE ON:</b> Spinning the plate moves every part of your food through the <b>hot spots</b> and <b>cold spots</b> so it heats evenly!'
+      : '<b>TURNTABLE OFF:</b> Watch the orange <b>HOT</b> stripes and blue <b>COLD</b> stripes! Standing waves leave cold spots when the food sits still!',
+    S.turntableOn ? '#0ea5e9' : '#f59e0b'
+  );
+});
+
+$('doorBtn').addEventListener('click', () => {
+  S.doorOpen = !S.doorOpen;
+  updatePills();
+  AudioEng.updateHum();
+  showPartTip('🚪',
+    S.doorOpen
+      ? '<b>DOOR OPEN — SAFETY SWITCH TRIPPED!</b> The instant the door latch opens, power to the magnetron cuts off so microwaves can NEVER escape!'
+      : '<b>DOOR SHUT:</b> The safety switch clicks back on, locking the microwaves safely inside the metal box!',
+    S.doorOpen ? '#ef4444' : '#22c55e'
+  );
+});
+
+$('slowBtn').addEventListener('click', () => {
+  S.slowMo = !S.slowMo;
+  updatePills();
+  AudioEng.updateHum();
+});
+
+$('soundBtn').addEventListener('click', () => {
+  AudioEng.toggle();
+  updatePills();
+});
+
+$('cookBtn').addEventListener('click', () => {
+  if (S.doorOpen) { S.doorOpen = false; S.running = true; }
+  else S.running = !S.running;
+  updatePills();
+  AudioEng.updateHum();
+  AudioEng.playBeep(S.running ? 880 : 520, 0.06);
+});
+
+$('resetBtn').addEventListener('click', () => {
+  resetFoodTemp();
+  AudioEng.playBeep(620, 0.07);
+});
+
+// Interactive machine part tooltips!
+$('magnetronPart').addEventListener('click', () =>
+  showPartTip('🧲', '<b>MAGNETRON:</b> The heart of the microwave! Inside, magnets whirl electrons in circles to beam out invisible <b>2.45 GHz radio waves</b> (microwaves)—about 12 cm long!', '#9333ea')
+);
+$('waveguidePart').addEventListener('click', () =>
+  showPartTip('📡', '<b>WAVEGUIDE:</b> A hollow metal tunnel that steers the microwaves straight from the magnetron into the cooking box without losing energy!', '#6366f1')
+);
+$('transformerPart').addEventListener('click', () =>
+  showPartTip('⚡', '<b>HIGH-VOLTAGE TRANSFORMER:</b> Boosts ordinary wall electricity (120V) up to about <b>2,000 volts</b> so the magnetron has enough punch to create microwaves!', '#ea580c')
+);
+$('fanPart').addEventListener('click', () =>
+  showPartTip('💨', '<b>COOLING FAN:</b> Making microwaves gets the magnetron super hot! This fan blows air over its metal fins—that’s part of the whooshing sound you hear!', '#0ea5e9')
+);
+$('turntablePart').addEventListener('click', () =>
+  showPartTip('🔄', '<b>SPINNING TURNTABLE:</b> Because waves bounce and form fixed hot & cold stripes, rotating the food moves every bite through the hot peaks!', '#0ea5e9')
+);
+$('latchPart').addEventListener('click', () =>
+  showPartTip('🔒', '<b>DOOR SAFETY SWITCH:</b> Microwaves have multiple hidden switches on the latch—open the door even a millimeter and the waves shut off instantly!', '#22c55e')
+);
+$('meshPart').addEventListener('click', () =>
+  showPartTip('👀', '<b>METAL DOOR MESH (FARADAY CAGE):</b> Microwaves are <b>12 cm</b> wide—way too big for the 1 mm holes, so they bounce back! Visible light waves are <b>200,000× tinier</b>, so they zip right through to your eyes!', '#8b5cf6')
+);
+
+// Keyboard shortcuts
+addEventListener('keydown', e => {
+  const k = e.key.toLowerCase();
+  if (k >= '1' && k <= '6') selectFood(FOOD_ORDER[Number(k) - 1]);
+  else if (k === ' ') { if (!S.doorOpen) { S.running = !S.running; updatePills(); AudioEng.updateHum(); } e.preventDefault(); }
+  else if (k === 'd') { $('doorBtn').dispatchEvent(new Event('click')); }
+  else if (k === 't') { $('turntableBtn').dispatchEvent(new Event('click')); }
+  else if (k === 's') { $('slowBtn').dispatchEvent(new Event('click')); }
+  else if (k === 'm') { AudioEng.toggle(); updatePills(); }
+  else if (k === 'r') { resetFoodTemp(); }
+  else if (k === 'arrowright' || k === 'arrowup') { S.powerNorm = clamp(S.powerNorm + 0.1, 0, 1); updatePowerUI(); e.preventDefault(); }
+  else if (k === 'arrowleft' || k === 'arrowdown') { S.powerNorm = clamp(S.powerNorm - 0.1, 0, 1); updatePowerUI(); e.preventDefault(); }
+});
+
+// =========================================================================
+// BOOT
+// =========================================================================
+buildMolField();
+updatePills();
+updatePowerUI();
+selectFood('soup');
+
+let last = performance.now();
+function loop(now) {
+  const dt = Math.min(0.05, (now - last) / 1000);
+  last = now;
+  step(dt);
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
