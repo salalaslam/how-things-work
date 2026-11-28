@@ -7,7 +7,8 @@
 <style>
   html, body { margin: 0; height: 100%; background: #fdf6e3; overflow: hidden; }
   body { font-family: "Chalkboard SE", "Comic Sans MS", "Comic Neue", system-ui, sans-serif; }
-  svg { display: block; width: 100vw; height: 100vh; touch-action: none; }
+  svg { display: block; width: 100vw; height: 100vh; touch-action: manipulation; }
+  #rpmSliderGroup { touch-action: none; }
   text { user-select: none; -webkit-user-select: none; }
   .btn { cursor: pointer; }
   .btn:hover > rect, .btn:hover > circle { filter: brightness(1.08); }
@@ -1519,6 +1520,10 @@ function setRpmFromEvent(e) {
   S.rpmNorm = clamp((pt.x - 1094) / 432, 0, 1);
   updateRpmUI();
 }
+// pinch-zoom works everywhere except on the control a finger is dragging
+document.addEventListener('touchmove', e => {
+  if (e.touches.length === 1 && e.target.closest && e.target.closest('#rpmSliderGroup')) e.preventDefault();
+}, { passive: false });
 rpmGroup.addEventListener('pointerdown', e => {
   draggingRpm = true;
   rpmGroup.setPointerCapture(e.pointerId);
