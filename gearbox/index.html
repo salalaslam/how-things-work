@@ -7,7 +7,8 @@
 <style>
   html, body { margin: 0; height: 100%; background: #fdf6e3; overflow: hidden; }
   body { font-family: "Chalkboard SE", "Comic Sans MS", "Comic Neue", system-ui, sans-serif; }
-  svg { display: block; width: 100vw; height: 100vh; touch-action: none; }
+  svg { display: block; width: 100vw; height: 100vh; touch-action: manipulation; }
+  #knob { touch-action: none; }
   text { user-select: none; -webkit-user-select: none; }
   .btn { cursor: pointer; }
   .btn:hover > rect, .btn:hover > circle { filter: brightness(1.12); }
@@ -617,6 +618,10 @@ function svgPt(e) {
   return p.matrixTransform(svg.getScreenCTM().inverse());
 }
 const knob = $('knob');
+// pinch-zoom works everywhere except on the control a finger is dragging
+document.addEventListener('touchmove', e => {
+  if (e.touches.length === 1 && e.target.closest && e.target.closest('#knob')) e.preventDefault();
+}, { passive: false });
 knob.addEventListener('pointerdown', e => {
   S.dragging = true; knob.setPointerCapture(e.pointerId);
   S.target = nearestOnGate(svgPt(e)); e.preventDefault();

@@ -7,7 +7,8 @@
 <style>
   html, body { margin: 0; height: 100%; background: #fdf6e3; overflow: hidden; }
   body { font-family: "Chalkboard SE", "Comic Sans MS", "Comic Neue", system-ui, sans-serif; }
-  svg { display: block; width: 100vw; height: 100vh; touch-action: none; }
+  svg { display: block; width: 100vw; height: 100vh; touch-action: manipulation; }
+  #mainBtn { touch-action: none; }
   text { user-select: none; -webkit-user-select: none; }
   .btn { cursor: pointer; }
   .btn:hover > rect, .btn:hover > circle { filter: brightness(1.12); }
@@ -877,6 +878,10 @@ const setFlow = d => { S.flow = clamp(S.flow + d, 1, 10); };
 // the main button: click for most steps, press and hold to fill
 const mb = $('mainBtn');
 let downPhase = null;
+// pinch-zoom works everywhere except on the control a finger is dragging
+document.addEventListener('touchmove', e => {
+  if (e.touches.length === 1 && e.target.closest && e.target.closest('#mainBtn')) e.preventDefault();
+}, { passive: false });
 mb.addEventListener('pointerdown', e => {
   downPhase = S.phase;
   if (S.phase === 'prepped') { S.holding = true; mb.setPointerCapture(e.pointerId); e.preventDefault(); }

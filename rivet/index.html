@@ -7,7 +7,8 @@
 <style>
   html, body { margin: 0; height: 100%; background: #fdf6e3; overflow: hidden; }
   body { font-family: "Chalkboard SE", "Comic Sans MS", "Comic Neue", system-ui, sans-serif; }
-  svg { display: block; width: 100vw; height: 100vh; touch-action: none; }
+  svg { display: block; width: 100vw; height: 100vh; touch-action: manipulation; }
+  #bigHandle { touch-action: none; }
   text { user-select: none; -webkit-user-select: none; }
   .btn { cursor: pointer; }
   .btn:hover > rect, .btn:hover > circle { filter: brightness(1.12); }
@@ -503,6 +504,10 @@ function dragTo(e) {
   const ang = Math.atan2(p.y - 265, p.x - (tip - 70)) * 180 / Math.PI;
   S.h = clamp((ang - 111.4) / 38, 0, 1);
 }
+// pinch-zoom works everywhere except on the control a finger is dragging
+document.addEventListener('touchmove', e => {
+  if (e.touches.length === 1 && e.target.closest && e.target.closest('#bigHandle')) e.preventDefault();
+}, { passive: false });
 handle.addEventListener('pointerdown', e => {
   S.dragging = true; S.auto = null; S.queued = false;
   handle.setPointerCapture(e.pointerId); dragTo(e); e.preventDefault();

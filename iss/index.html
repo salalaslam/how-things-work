@@ -8,7 +8,8 @@
 <style>
   html, body { margin: 0; height: 100%; background: #fdf6e3; overflow: hidden; }
   body { font-family: "Chalkboard SE", "Comic Sans MS", "Comic Neue", system-ui, sans-serif; }
-  svg { display: block; width: 100vw; height: 100vh; touch-action: none; }
+  svg { display: block; width: 100vw; height: 100vh; touch-action: manipulation; }
+  #knob { touch-action: none; }
   text { user-select: none; -webkit-user-select: none; }
   .btn { cursor: pointer; outline: none; }
   .btn:hover > rect { filter: brightness(1.07); }
@@ -544,9 +545,14 @@ function svgPoint(e) {
   return pt.matrixTransform($('svg').getScreenCTM().inverse());
 }
 let dragging = false;
+// pinch-zoom works everywhere except on the control a finger is dragging
+document.addEventListener('touchmove', e => {
+  if (e.touches.length === 1 && e.target.closest && e.target.closest('#knob')) e.preventDefault();
+}, { passive: false });
 knob.addEventListener('pointerdown', e => { dragging = true; knob.setPointerCapture(e.pointerId); });
 knob.addEventListener('pointermove', e => { if (dragging) setV((svgPoint(e).x - SL_X0) / (SL_X1 - SL_X0) * V_MAX); });
 knob.addEventListener('pointerup', () => { dragging = false; });
+knob.addEventListener('pointercancel', () => { dragging = false; });
 knob.addEventListener('keydown', e => {
   if (e.key === 'ArrowRight' || e.key === 'ArrowUp') { setV(TS.v + 0.1); e.preventDefault(); }
   if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') { setV(TS.v - 0.1); e.preventDefault(); }
